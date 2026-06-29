@@ -35,6 +35,13 @@ nav{position:fixed;bottom:0;left:0;right:0;height:72px;background:rgba(248,244,2
 .nav-btn .icon{font-size:26px;transition:transform .2s cubic-bezier(.34,1.56,.64,1)}
 .nav-btn.active{color:var(--accent)}
 .nav-btn.active .icon{transform:scale(1.15) translateY(-1px)}
+.nav-icn{width:26px;height:26px;object-fit:contain;display:block;filter:grayscale(1) opacity(.55);transition:transform .2s cubic-bezier(.34,1.56,.64,1),filter .2s}
+.nav-btn.active .nav-icn{filter:none;transform:scale(1.15) translateY(-1px)}
+.tab-icn{width:16px;height:16px;object-fit:contain;vertical-align:middle;display:inline-block;margin-bottom:2px;filter:opacity(.7)}
+.adm-tab.active .tab-icn{filter:invert(1) opacity(1)}
+.bi{width:15px;height:15px;object-fit:contain;vertical-align:middle;display:inline-block;flex-shrink:0}
+.bi-lg{width:20px;height:20px}
+.bi-xl{width:24px;height:24px}
 .nav-dot{position:absolute;top:4px;right:6px;width:9px;height:9px;background:var(--danger);border-radius:50%;border:2px solid var(--bg);display:none;animation:dotPulse 2s ease-in-out infinite}
 .nav-dot.on{display:block}
 
@@ -283,14 +290,14 @@ nav{position:fixed;bottom:0;left:0;right:0;height:72px;background:rgba(248,244,2
   <div class="card">
     <div class="s-head" id="stAbout"></div>
     <div class="s-row"><div class="s-label">📞 050-659-8734</div><a href="tel:0506598734" class="btn btn-ghost btn-sm" id="stCall"></a></div>
-    <div class="s-row" style="border:none"><div class="s-label">📍 <span id="stLoc"></span></div></div>
+    <div class="s-row" style="border:none"><div class="s-label" style="display:flex;align-items:center;gap:8px"><img src="icons/land-plot.png" style="width:18px;height:18px;opacity:.6"> <span id="stLoc"></span></div></div>
   </div>
 </div>
 
 <!-- ══ ADMIN ══ -->
 <div id="sAdmin" class="screen">
   <div id="adminLogin" class="adm-login">
-    <div style="font-size:48px;margin-bottom:16px">🔐</div>
+    <div style="margin-bottom:16px"><img src="icons/lock-keyhole.png" style="width:56px;height:56px;opacity:.7"></div>
     <h2 style="margin-bottom:20px;font-size:22px" id="admLoginTitle"></h2>
     <div style="width:100%;max-width:320px">
       <div class="form-group"><label id="admPwdLbl"></label><input type="password" id="adminPwd" autocomplete="current-password"/></div>
@@ -304,11 +311,11 @@ nav{position:fixed;bottom:0;left:0;right:0;height:72px;background:rgba(248,244,2
       <button class="btn btn-ghost btn-sm" data-action="adminLogout" id="admLogoutBtn"></button>
     </div>
     <div class="adm-tabs">
-      <button class="adm-tab active" data-action="admTab" data-tab="bookings" id="admTabBk"></button>
-      <button class="adm-tab" data-action="admTab" data-tab="accounts" id="admTabAcc"></button>
-      <button class="adm-tab" data-action="admTab" data-tab="blacklist" id="admTabBl"></button>
-      <button class="adm-tab" data-action="admTab" data-tab="gallery" id="admTabGal"></button>
-      <button class="adm-tab" data-action="admTab" data-tab="settings" id="admTabSet"></button>
+      <button class="adm-tab active" data-action="admTab" data-tab="bookings"><img class="tab-icn" src="icons/clipboard-pen-line.png"><br><span id="admTabBk"></span></button>
+      <button class="adm-tab" data-action="admTab" data-tab="accounts"><img class="tab-icn" src="icons/users.png"><br><span id="admTabAcc"></span></button>
+      <button class="adm-tab" data-action="admTab" data-tab="blacklist"><img class="tab-icn" src="icons/ban.png"><br><span id="admTabBl"></span></button>
+      <button class="adm-tab" data-action="admTab" data-tab="gallery"><img class="tab-icn" src="icons/images.png"><br><span id="admTabGal"></span></button>
+      <button class="adm-tab" data-action="admTab" data-tab="settings"><img class="tab-icn" src="icons/settings-2.png"><br><span id="admTabSet"></span></button>
     </div>
     <!-- BOOKINGS -->
     <div id="tabBookings">
@@ -317,7 +324,7 @@ nav{position:fixed;bottom:0;left:0;right:0;height:72px;background:rgba(248,244,2
         <button class="btn btn-ghost btn-sm" data-action="filterBk" data-filter="pending" id="fPend"></button>
         <button class="btn btn-ghost btn-sm" data-action="filterBk" data-filter="confirmed" id="fConf"></button>
         <div style="flex:1"></div>
-        <button class="btn btn-ghost btn-sm" data-action="toggleBkView" id="viewToggleBtn" style="font-size:16px;padding:8px 14px">📊</button>
+        <button class="btn btn-ghost btn-sm" data-action="toggleBkView" id="viewToggleBtn" style="padding:8px 12px"><img class="bi" src="icons/monitor-play.png" id="viewToggleIcn"></button>
       </div>
       <div id="bookingsList"></div>
       <div id="monitorBoard" class="monitor-board" style="display:none"></div>
@@ -382,11 +389,11 @@ nav{position:fixed;bottom:0;left:0;right:0;height:72px;background:rgba(248,244,2
 <!-- NAV -->
 <nav>
   <button class="nav-btn active" data-action="go" data-screen="sHome">
-    <span class="icon">🏠</span><span id="navHome"></span>
+    <img class="nav-icn" src="icons/house.png"><span id="navHome"></span>
     <span class="nav-dot" id="navDot"></span>
   </button>
   <button class="nav-btn" data-action="go" data-screen="sSettings">
-    <span class="icon">⚙️</span><span id="navSettings"></span>
+    <img class="nav-icn" src="icons/settings-2.png"><span id="navSettings"></span>
   </button>
 </nav>
 
@@ -447,12 +454,12 @@ he:{
   actBkTxt:'יש לך תור פעיל!',actBkBtn:'הפרטים שלי',
   admLoginTitle:'כניסה למנהל',admPwdLbl:'סיסמה',admLoginBtn:'כניסה',admBackBtn:'חזרה',
   admDashTitle:'ניהול הסטודיו',admLogout:'יציאה',
-  tabBk:'📋 תורים',tabAcc:'👤 לקוחות',tabBl:'🚫 חסומים',tabGal:'🖼️ גלריה',tabSet:'⚙️ הגדרות',
+  tabBk:'תורים',tabAcc:'לקוחות',tabBl:'חסומים',tabGal:'גלריה',tabSet:'הגדרות',
   fAll:'הכל',fPend:'ממתינות',fConf:'מאושרות',
   admUploadTitle:'העלאת תמונה',admUploadLbl:'בחרי תמונה',admCaptionLbl:'כיתוב',admUploadBtn:'הוסף',
   admExistingTitle:'תמונות קיימות',admSetTitle:'הגדרות כלליות',
   admPhoneLbl:'WhatsApp (קוד מדינה + מספר)',admPwdChangeLbl:'שינוי סיסמת מנהל',admSaveBtn:'שמור',
-  admDataTitle:'ניהול נתונים',admExportBtn:'📤 ייצוא JSON',admClearBtn:'🗑️ מחק ישנות',
+  admDataTitle:'ניהול נתונים',admExportBtn:'ייצוא JSON',admClearBtn:'מחק ישנות',
   waApiTitle:'WhatsApp Cloud API',waTokenLbl:'Access Token',waPhoneIdLbl:'Phone Number ID',
   waSaveBtn:'שמור API',waTestBtn:'🔗 בדיקת חיבור',
   waApiNote:'',
@@ -466,9 +473,9 @@ he:{
   blAddTitle:'הוספה לרשימה השחורה',blPhoneLbl:'מספר טלפון',blNameLbl:'שם (אופציונלי)',blReasonLbl:'סיבה',blAddBtn:'🚫 הוסף',blListTitle:'רשימה שחורה',blEmpty:'אין לקוחות חסומים',blRemove:'הסר',
   navHome:'בית',navSettings:'הגדרות',
   stPending:'ממתינה',stConfirmed:'בטיפול',stCancelled:'בוטלה',stCompleted:'הושלמה',
-  monNew:'🆕 חדשות',monProgress:'⚙️ בטיפול',monDone:'✅ הושלמו',
-  monStartBtn:'התחל →',monDoneBtn:'✓ הסתיים',monViewList:'📋',monViewMon:'📊',
-  actConfirmWA:'✅ אשר',actCancel:'ביטול',actResend:'📲 שלח שוב',actRemind:'⏰ תזכורת',actBan:'🚫 חסום',actComplete:'✓ הושלם',
+  monNew:'חדשות',monProgress:'בטיפול',monDone:'הושלמו',
+  monStartBtn:'התחל',monDoneBtn:'הושלם',monViewList:'list',monViewMon:'monitor',
+  actConfirmWA:'אשר',actCancel:'ביטול',actResend:'שלח שוב',actRemind:'תזכורת',actBan:'חסום',actComplete:'הושלם',
   toastBooked:'✅ נשלח!',toastFill:'⚠️ נא למלא את כל השדות',toastSaved:'✅ נשמר',
   toastImgAdded:'✅ תמונה נוספה',toastWrongPwd:'❌ סיסמה שגויה',toastConfirmed:'✅ אישור נשלח',
   toastLoggedOut:'👋 יצאת',toastWaSent:'📲 נשלח בוואטסאפ',toastWaFail:'❌ שגיאת API',
@@ -502,12 +509,12 @@ ru:{
   actBkTxt:'У вас активная запись!',actBkBtn:'Мои данные',
   admLoginTitle:'Вход для администратора',admPwdLbl:'Пароль',admLoginBtn:'Войти',admBackBtn:'Назад',
   admDashTitle:'Управление студией',admLogout:'Выйти',
-  tabBk:'📋 Записи',tabAcc:'👤 Клиенты',tabBl:'🚫 Блок-лист',tabGal:'🖼️ Галерея',tabSet:'⚙️ Настройки',
+  tabBk:'Записи',tabAcc:'Клиенты',tabBl:'Блок-лист',tabGal:'Галерея',tabSet:'Настройки',
   fAll:'Все',fPend:'Ожидают',fConf:'Подтверждённые',
   admUploadTitle:'Загрузить фото',admUploadLbl:'Выберите фото',admCaptionLbl:'Подпись',admUploadBtn:'Добавить',
   admExistingTitle:'Фото',admSetTitle:'Основные настройки',
   admPhoneLbl:'WhatsApp (код + номер)',admPwdChangeLbl:'Сменить пароль',admSaveBtn:'Сохранить',
-  admDataTitle:'Данные',admExportBtn:'📤 Экспорт JSON',admClearBtn:'🗑️ Очистить старые',
+  admDataTitle:'Данные',admExportBtn:'Экспорт JSON',admClearBtn:'Очистить старые',
   waApiTitle:'WhatsApp Cloud API',waTokenLbl:'Access Token',waPhoneIdLbl:'Phone Number ID',
   waSaveBtn:'Сохранить API',waTestBtn:'🔗 Проверить соединение',
   waApiNote:'',
@@ -521,9 +528,9 @@ ru:{
   blAddTitle:'Добавить в чёрный список',blPhoneLbl:'Телефон',blNameLbl:'Имя (необязательно)',blReasonLbl:'Причина',blAddBtn:'🚫 Заблокировать',blListTitle:'Чёрный список',blEmpty:'Список пуст',blRemove:'Удалить',
   navHome:'Главная',navSettings:'Настройки',
   stPending:'Ожидает',stConfirmed:'В работе',stCancelled:'Отменена',stCompleted:'Выполнена',
-  monNew:'🆕 Новые',monProgress:'⚙️ В работе',monDone:'✅ Готово',
-  monStartBtn:'Начать →',monDoneBtn:'✓ Готово',monViewList:'📋',monViewMon:'📊',
-  actConfirmWA:'✅ Подтвердить',actCancel:'Отменить',actResend:'📲 Повторить',actRemind:'⏰ Напомнить',actBan:'🚫 Блок',actComplete:'✓ Выполнено',
+  monNew:'Новые',monProgress:'В работе',monDone:'Готово',
+  monStartBtn:'Начать',monDoneBtn:'Готово',monViewList:'list',monViewMon:'monitor',
+  actConfirmWA:'Подтвердить',actCancel:'Отменить',actResend:'Повторить',actRemind:'Напомнить',actBan:'Блок',actComplete:'Выполнено',
   toastBooked:'✅ Отправлено!',toastFill:'⚠️ Заполните все поля',toastSaved:'✅ Сохранено',
   toastImgAdded:'✅ Фото добавлено',toastWrongPwd:'❌ Неверный пароль',toastConfirmed:'✅ Подтверждение отправлено',
   toastLoggedOut:'👋 Вы вышли',toastWaSent:'📲 Отправлено через WA API',toastWaFail:'❌ Ошибка API',
@@ -639,7 +646,7 @@ function renderHome(){
   $('homeServices').innerHTML=state.services.map(s=>{
     const name=ru&&s.nameRu?s.nameRu:s.name,desc=ru&&s.descRu?s.descRu:s.desc;
     return`<div class="service-card" data-action="tryBookSvc" data-id="${s.id}">
-      <div class="svc-icon">${s.icon}</div><div style="flex:1"><div class="svc-name">${name}</div><div class="svc-desc">${desc}</div></div>
+      <div class="svc-icon">${ic('wand-sparkles',28)}</div><div style="flex:1"><div class="svc-name">${name}</div><div class="svc-desc">${desc}</div></div>
       <div class="svc-price">${s.price}</div></div>`;
   }).join('');
   renderGallery();updateBanner();
@@ -723,7 +730,7 @@ function renderWiz1(){
   $('wizS1').innerHTML=`<div class="wiz-h">${t('wiz1Title')}</div><div class="wiz-sub">${t('wiz1Sub')}</div>`+
     state.services.map(s=>{const name=ru&&s.nameRu?s.nameRu:s.name,desc=ru&&s.descRu?s.descRu:s.desc;
     return`<div class="wiz-svc${wizData.serviceId===s.id?' sel':''}" data-action="wizSelSvc" data-id="${s.id}">
-      <div class="wi">${s.icon}</div><div style="flex:1"><div class="wn">${name}</div><div class="wd">${desc}</div></div>
+      <div class="wi">${ic('wand-sparkles',32)}</div><div style="flex:1"><div class="wn">${name}</div><div class="wd">${desc}</div></div>
       <div class="wp">${s.price}</div></div>`;}).join('');
 }
 function renderWiz2(){
@@ -826,7 +833,7 @@ function renderAdmin(){
     renderBkList();renderAdmAccounts();renderAdmBlacklist();renderAdmGal();
     $('settingPhone').value=state.settings.phone||'';
     $('waToken').value=state.settings.waToken||'';$('waPhoneId').value=state.settings.waPhoneId||'';
-    updateWaStatus();renderWaSteps();
+    updateWaStatus();renderWaSteps();renderAdmBtnIcons();
   }
 }
 function renderWaSteps(){
@@ -834,12 +841,24 @@ function renderWaSteps(){
   const lang=state.settings.lang||'he';
   const steps=(S[lang]&&S[lang].waSteps)||S.he.waSteps;
   el.innerHTML=`<div class="wa-steps-card">
-    <div class="wa-steps-title">📖 ${lang==='ru'?'Как подключить?':'איך מחברים?'}</div>
+    <div class="wa-steps-title">${ic('book-open-text',16)} ${lang==='ru'?'Как подключить?':'איך מחברים?'}</div>
     ${steps.map(s=>`<div class="wa-step">
       <div class="wa-step-num">${s.n}</div>
       <div class="wa-step-body"><div class="wa-step-txt">${s.txt}</div><div class="wa-step-sub">${s.sub}</div></div>
     </div>`).join('')}
   </div>`;
+}
+function renderAdmBtnIcons(){
+  const M={
+    admExportBtn:[ic('folder-down'),t('admExportBtn')],
+    admClearBtn:[ic('trash-2'),t('admClearBtn')],
+    admSaveBtn:[ic('check-check'),t('admSaveBtn')],
+    waSaveBtn:[ic('check-check'),t('waSaveBtn')],
+    waTestBtn:[ic('waypoints'),t('waTestBtn')],
+    admUploadBtn:[ic('images'),t('admUploadBtn')],
+    blAddBtn:[ic('ban'),t('blAddBtn')],
+  };
+  Object.entries(M).forEach(([id,[icon,label]])=>{const el=$(id);if(el)el.innerHTML=icon+' '+label;});
 }
 function updateWaStatus(){
   const el=$('waStatusBadge');if(!el)return;
@@ -857,18 +876,18 @@ function toggleBkView(){
   const btn=$('viewToggleBtn');
   if(bkView==='monitor'){
     $('bookingsList').style.display='none';$('monitorBoard').style.display='';
-    if(btn)btn.textContent=t('monViewList');renderMonitor();
+    if(btn)btn.innerHTML=ic('clipboard-pen-line');renderMonitor();
   }else{
     $('monitorBoard').style.display='none';$('bookingsList').style.display='';
-    if(btn)btn.textContent=t('monViewMon');renderBkList();
+    if(btn)btn.innerHTML=ic('monitor-play');renderBkList();
   }
 }
 function renderMonitor(){
   const today=new Date().toISOString().slice(0,10);
   const cols=[
-    {key:'pending',label:t('monNew'),bg:'#4a7fd0',items:[]},
-    {key:'confirmed',label:t('monProgress'),bg:'#d08030',items:[]},
-    {key:'completed',label:t('monDone'),bg:'#3ea068',items:[]},
+    {key:'pending',icon:'clipboard-pen-line',label:t('monNew'),bg:'#4a7fd0',items:[]},
+    {key:'confirmed',icon:'settings-2',label:t('monProgress'),bg:'#d08030',items:[]},
+    {key:'completed',icon:'check-check',label:t('monDone'),bg:'#3ea068',items:[]},
   ];
   [...state.bookings].filter(b=>b.status!=='cancelled').sort((a,b)=>a.time?.localeCompare(b.time)).forEach(b=>{
     const col=cols.find(c=>c.key===b.status);if(col)col.items.push(b);
@@ -885,13 +904,14 @@ function renderMonitor(){
       return`<div class="mon-card${isToday?' is-today':''}">
         <div class="mon-time">${b.time||'—'}</div>
         <div class="mon-name">${b.name}</div>
-        <div class="mon-svc">${svc?svc.icon+' ':''} ${svcName}</div>
+        <div class="mon-svc">${ic('wand-sparkles',12)} ${svcName}</div>
         ${isToday?'':'<div style="font-size:10px;color:var(--muted);margin-top:3px">📅 '+b.date+'</div>'}
         ${advBtn}
       </div>`;
     }).join('');
     return`<div class="mon-col">
       <div class="mon-col-hd" style="background:${col.bg}">
+        <img src="icons/${col.icon}.png" style="width:13px;height:13px;filter:invert(1) opacity(.9);flex-shrink:0">
         <span class="mon-label">${col.label}</span>
         <span class="mon-cnt">${col.items.length}</span>
       </div>
@@ -912,15 +932,15 @@ function renderBkList(){
     const blked=isBlacklisted(b.phone);
     return`<div class="bk-item ${b.status}">
       <div class="bk-meta"><div class="bk-name">${b.name}${blked?' 🚫':''}</div><div class="bk-lbl ${sc[b.status]||''}">${sl[b.status]||b.status}</div></div>
-      <div class="bk-detail">📞 ${b.phone}<br>💅 ${svc?svc.icon+' '+svc.name:'—'}<br>📅 ${b.date} ${b.time}${b.notes?'<br>📝 '+b.notes:''}</div>
+      <div class="bk-detail">${ic('phone')} ${b.phone}<br>${ic('wand-sparkles')} ${svc?svc.name:'—'}<br>${ic('waypoints')} ${b.date} ${b.time}${b.notes?`<br>${ic('notepad-text')} `+b.notes:''}</div>
       <div class="bk-actions">
-        ${b.status==='pending'?`<button class="btn btn-wa btn-sm" data-action="confirmWA" data-bid="${b.id}">${t('actConfirmWA')}</button>
+        ${b.status==='pending'?`<button class="btn btn-wa btn-sm" data-action="confirmWA" data-bid="${b.id}">${ic('check-check')} ${t('actConfirmWA')}</button>
           <button class="btn btn-ghost btn-sm" data-action="cancelBk" data-bid="${b.id}">${t('actCancel')}</button>`:''}
-        ${b.status==='confirmed'?`<button class="btn btn-primary btn-sm" data-action="completeBk" data-bid="${b.id}">${t('actComplete')}</button>
-          <button class="btn btn-ghost btn-sm" data-action="resendWA" data-bid="${b.id}">${t('actResend')}</button>
+        ${b.status==='confirmed'?`<button class="btn btn-primary btn-sm" data-action="completeBk" data-bid="${b.id}">${ic('check-check')} ${t('actComplete')}</button>
+          <button class="btn btn-ghost btn-sm" data-action="resendWA" data-bid="${b.id}">${ic('send')} ${t('actResend')}</button>
           <button class="btn btn-warn btn-sm" data-action="sendReminder" data-bid="${b.id}">${t('actRemind')}</button>`:''}
-        ${!blked?`<button class="btn btn-danger btn-sm" data-action="banClient" data-phone="${b.phone}" data-name="${b.name}">${t('actBan')}</button>`:''}
-        <button class="btn btn-ghost btn-sm" data-action="deleteBk" data-bid="${b.id}">🗑️</button>
+        ${!blked?`<button class="btn btn-danger btn-sm" data-action="banClient" data-phone="${b.phone}" data-name="${b.name}">${ic('ban')} ${t('actBan')}</button>`:''}
+        <button class="btn btn-ghost btn-sm" data-action="deleteBk" data-bid="${b.id}">${ic('trash-2')}</button>
       </div></div>`;
   }).join('');
 }
@@ -959,13 +979,13 @@ function renderAdmAccounts(){
     const blked=isBlacklisted(u.phone);
     return`<div class="acct-item${blked?' bk-item cancelled':''}">
       <div class="acct-av" style="${blked?'background:var(--danger)':''}">${initials||'?'}</div>
-      <div style="flex:1"><div style="font-size:15px;font-weight:700">${u.name}${blked?' 🚫':''}</div>
-        <div style="font-size:13px;color:var(--muted);margin-top:2px">📞 ${u.phone}</div>
+      <div style="flex:1"><div style="font-size:15px;font-weight:700">${u.name}${blked?` ${ic('ban',14)}`:''}</div>
+        <div style="font-size:13px;color:var(--muted);margin-top:2px;display:flex;align-items:center;gap:5px">${ic('phone',13)} ${u.phone}</div>
         <div style="font-size:12px;color:var(--muted);margin-top:3px">${u.count} תורים${u.lastDate?' · '+u.lastDate:''}</div></div>
       ${u.active>0?`<div style="background:rgba(74,127,208,.12);color:var(--accent);font-size:11px;font-weight:700;padding:4px 10px;border-radius:6px">${u.active} פעיל</div>`:''}
       <div style="display:flex;flex-direction:column;gap:6px">
-        <a href="tel:${u.phone}" class="btn btn-ghost btn-sm">📞</a>
-        ${!blked?`<button class="btn btn-danger btn-sm" data-action="banClient" data-phone="${u.phone}" data-name="${u.name}">${t('actBan')}</button>`:`<button class="btn btn-ghost btn-sm" data-action="unbanClient" data-phone="${u.phone}">✓ ${t('blRemove')}</button>`}
+        <a href="tel:${u.phone}" class="btn btn-ghost btn-sm">${ic('phone')}</a>
+        ${!blked?`<button class="btn btn-danger btn-sm" data-action="banClient" data-phone="${u.phone}" data-name="${u.name}">${ic('ban')} ${t('actBan')}</button>`:`<button class="btn btn-ghost btn-sm" data-action="unbanClient" data-phone="${u.phone}">${ic('check-check')} ${t('blRemove')}</button>`}
       </div></div>`;
   }).join('');
 }
@@ -973,10 +993,10 @@ function renderAdmBlacklist(){
   const el=$('blacklistItems');
   if(!state.blacklist.length){el.innerHTML=`<div class="empty"><div class="ei">✅</div><p>${t('blEmpty')}</p></div>`;return;}
   el.innerHTML=state.blacklist.map((b,i)=>`<div class="bl-item">
-    <div style="font-size:24px">🚫</div>
+    <div>${ic('ban',24)}</div>
     <div style="flex:1"><div style="font-size:15px;font-weight:700">${b.name||b.phone}</div>
-      ${b.name?`<div style="font-size:13px;color:var(--muted)">📞 ${b.phone}</div>`:''}
-      ${b.reason?`<div style="font-size:12px;color:var(--muted);margin-top:2px">💬 ${b.reason}</div>`:''}
+      ${b.name?`<div style="font-size:13px;color:var(--muted);display:flex;align-items:center;gap:5px">${ic('phone',13)} ${b.phone}</div>`:''}
+      ${b.reason?`<div style="font-size:12px;color:var(--muted);margin-top:2px;display:flex;align-items:center;gap:5px">${ic('notepad-text',12)} ${b.reason}</div>`:''}
       <div style="font-size:11px;color:var(--muted);margin-top:3px">${new Date(b.addedAt).toLocaleDateString()}</div>
     </div>
     <button class="btn btn-ghost btn-sm" data-action="removeBlacklist" data-idx="${i}">${t('blRemove')}</button>
@@ -988,7 +1008,7 @@ function renderAdmGal(){
   el.innerHTML=state.gallery.map((img,i)=>`<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)">
     <img src="${img.src}" style="width:52px;height:52px;object-fit:cover;border-radius:10px"/>
     <div style="flex:1;font-size:13px;color:var(--muted)">${img.caption||'—'}</div>
-    <button class="btn btn-danger btn-sm" data-action="deleteGallery" data-idx="${i}">🗑️</button></div>`).join('');
+    <button class="btn btn-danger btn-sm" data-action="deleteGallery" data-idx="${i}">${ic('trash-2')}</button></div>`).join('');
 }
 function uploadGallery(){
   const file=$('galleryUpload').files[0],cap=$('galleryCaption').value.trim();if(!file)return;
@@ -1031,6 +1051,8 @@ function onLogoTap(){
 /* ── UTILS ── */
 function $(id){return document.getElementById(id);}
 function $t(id,txt){const el=$(id);if(el&&typeof txt==='string')el.textContent=txt;}
+function ic(name,size=15){return `<img src="icons/${name}.png" style="width:${size}px;height:${size}px;object-fit:contain;vertical-align:middle;display:inline-block;flex-shrink:0">`;}
+const ICMAP={trash:'trash-2',phone:'phone',send:'send',check:'check-check',ban:'ban',note:'notepad-text',book:'book-open-text',upload:'folder-down',monitor:'monitor-play',list:'clipboard-pen-line',settings:'settings-2',users:'users',images:'images',lock:'lock-keyhole',home:'house',svc:'wand-sparkles',location:'land-plot',calendar:'waypoints'};
 function showToast(msg){const el=$('toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2800);}
 
 /* ── EVENTS ── */
