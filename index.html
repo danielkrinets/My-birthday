@@ -1,746 +1,1100 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
-<title>🎂 יום הולדת של דניאל</title>
-<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#f5f1ec">
+<title>סטודיו גיא | Guy Zohari Nails</title>
+<link rel="icon" href="logo.png" type="image/png">
+<link rel="apple-touch-icon" href="logo.png">
 <style>
-/* 
-   RESET
- */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root{
+  --bg:#f5f1ec;--surface:#fff;--surface2:#ece8e1;
+  --accent:#4a7fd0;--accent-d:#3568b8;--accent-l:#7aaae8;
+  --text:#1c1814;--muted:#7a7068;--border:#dbd6ce;
+  --success:#3ea068;--danger:#cc3c3c;--warn:#d08030;
+  --sh0:0 1px 4px rgba(0,0,0,.07),0 1px 10px rgba(0,0,0,.04);
+  --sh1:0 3px 12px rgba(0,0,0,.11),0 6px 28px rgba(0,0,0,.07);
+  --sh2:0 6px 24px rgba(0,0,0,.15),0 12px 48px rgba(0,0,0,.09);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,'SF Pro Text','Segoe UI',Arial,sans-serif;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.screen{display:none;min-height:100vh;padding-bottom:88px}
+.screen.active{display:block}
+@keyframes float{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-8px) rotate(1deg)}}
+@keyframes ctaGlow{0%,100%{box-shadow:0 4px 22px rgba(74,127,208,.42),var(--sh0)}50%{box-shadow:0 6px 36px rgba(74,127,208,.68),var(--sh0)}}
+@keyframes dotPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.35);opacity:.7}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 
-/* 
-   AQUA TOKENS
- */
-:root {
-  --bg-top:    #b8ceea;
-  --bg-bot:    #d8e8f8;
-  --win-top:   #e2ecf8;
-  --win-bot:   #f0f6ff;
-  --stripe:    rgba(255,255,255,0.55);
+/* ── LIQUID GLASS NAV ── */
+nav{position:fixed;bottom:0;left:0;right:0;height:72px;background:rgba(248,244,238,.85);backdrop-filter:blur(32px) saturate(2.2);-webkit-backdrop-filter:blur(32px) saturate(2.2);border-top:1.5px solid rgba(255,255,255,.78);box-shadow:0 -2px 28px rgba(0,0,0,.08);display:flex;justify-content:space-around;align-items:center;z-index:100}
+.nav-btn{position:relative;display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;color:var(--muted);font-size:11px;font-weight:700;cursor:pointer;padding:8px 42px;touch-action:manipulation;user-select:none;-webkit-user-select:none;font-family:inherit;transition:color .2s,transform 55ms cubic-bezier(.4,0,.6,1),opacity 60ms}
+.nav-btn:active{transform:scale(0.80);opacity:.68}
+.nav-btn .icon{font-size:26px;transition:transform .2s cubic-bezier(.34,1.56,.64,1)}
+.nav-btn.active{color:var(--accent)}
+.nav-btn.active .icon{transform:scale(1.15) translateY(-1px)}
+.nav-dot{position:absolute;top:4px;right:6px;width:9px;height:9px;background:var(--danger);border-radius:50%;border:2px solid var(--bg);display:none;animation:dotPulse 2s ease-in-out infinite}
+.nav-dot.on{display:block}
 
-  --btn-top:   #7db4e8;
-  --btn-mid:   #4a90d9;
-  --btn-bot:   #2a6ab8;
-  --btn-shine: rgba(255,255,255,0.75);
-  --btn-text:  #fff;
-  --btn-shad:  rgba(30,70,140,0.4);
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 26px;border-radius:14px;border:none;font-size:15px;font-weight:700;cursor:pointer;text-decoration:none;white-space:nowrap;font-family:inherit;touch-action:manipulation;user-select:none;-webkit-user-select:none;box-shadow:var(--sh0);transition:transform 55ms cubic-bezier(.4,0,.6,1),box-shadow 110ms ease,opacity 60ms,filter 55ms ease,background .2s}
+.btn:not(:disabled):hover:not(:active){box-shadow:var(--sh1);transform:translateY(-2px)}
+.btn:active{transform:scale(0.85) translateY(1px)!important;box-shadow:0 1px 4px rgba(0,0,0,.08)!important;opacity:.76;filter:brightness(.87)}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-hero{background:var(--accent);color:#fff;font-size:17px;padding:16px 38px;animation:ctaGlow 2.8s ease-in-out infinite}
+.btn-hero:active,.btn-hero:not(:active):hover{animation:none}
+.btn-wa{background:#25D366;color:#fff}
+.btn-outline{background:transparent;color:var(--accent);border:2px solid var(--accent)}
+.btn-danger{background:var(--danger);color:#fff}
+.btn-warn{background:var(--warn);color:#fff}
+.btn-ghost{background:var(--surface2);color:var(--text);border:1px solid var(--border)}
+.btn-sm{padding:9px 18px;font-size:13px;border-radius:10px}
+.btn-full{width:100%}
 
-  --green-top: #82d96a;
-  --green-bot: #3aaf1a;
-  --red-top:   #f08080;
-  --red-bot:   #d02020;
+/* ── FORMS ── */
+.form-group{margin-bottom:14px}
+.form-group label{display:block;font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:7px}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:13px 14px;background:var(--surface2);border:1.5px solid var(--border);border-radius:12px;color:var(--text);font-size:15px;font-family:inherit;transition:border-color .2s,box-shadow .2s;appearance:none;-webkit-appearance:none}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3.5px rgba(74,127,208,.16)}
+.form-group textarea{resize:vertical;min-height:80px}
 
-  --text:      #1a2a40;
-  --sub:       #4a6080;
-  --border:    rgba(120,160,210,0.5);
+/* ── CARD ── */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:18px;margin:10px 16px;box-shadow:var(--sh0)}
+.ph{background:var(--surface);padding:48px 20px 18px;text-align:center;border-bottom:1px solid var(--border);box-shadow:var(--sh0)}
+.ph h1{font-size:20px;font-weight:800;color:var(--accent)}
 
-  --r: 14px;
-}
+/* ── HERO ── */
+.hero{position:relative;min-height:52vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:56px 24px 32px;text-align:center;overflow:hidden}
+.hero-bg{position:absolute;inset:-6px;background:url('IMG_2304.png') center/cover no-repeat;opacity:.52;filter:blur(1.5px) saturate(1.7);transform:scale(1.06)}
+.hero-grad{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(245,241,236,.08) 0%,rgba(245,241,236,.38) 42%,var(--bg) 88%)}
+.hero>*:not(.hero-bg):not(.hero-grad){position:relative;z-index:1}
+.hero-logo{margin-bottom:18px}
+.hero-logo img{width:118px;height:118px;object-fit:cover;border-radius:30px;border:2.5px solid rgba(255,255,255,.9);box-shadow:0 8px 32px rgba(74,127,208,.28),0 2px 10px rgba(0,0,0,.12);animation:float 4.5s ease-in-out infinite;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.hero-title{font-size:30px;font-weight:800;letter-spacing:-.5px}
+.hero-sub{font-size:14px;color:var(--muted);margin-top:5px;font-weight:500}
+.hero-cta{margin-top:22px}
+.act-bk{margin:10px 16px 0;padding:13px 16px;background:linear-gradient(120deg,rgba(74,127,208,.1),rgba(74,127,208,.06));border:1.5px solid rgba(74,127,208,.28);border-radius:16px;display:none;align-items:center;gap:12px;animation:fadeUp .3s ease;box-shadow:var(--sh0)}
+.act-bk.on{display:flex}
+.act-bk-pulse{width:9px;height:9px;background:var(--accent);border-radius:50%;flex-shrink:0;animation:dotPulse 2s ease-in-out infinite}
 
-html, body {
-  min-height: 100vh;
-  font-family: 'Heebo', 'Helvetica Neue', Arial, sans-serif;
-  background: linear-gradient(160deg, var(--bg-top), var(--bg-bot));
-  color: var(--text);
-  overflow-x: hidden;
-}
+/* ── BADGES / TRUST ── */
+.badge-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:14px 16px 0}
+.badge{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:6px 14px;font-size:12px;font-weight:700;color:var(--accent);box-shadow:var(--sh0)}
+.trust-block{margin:12px 16px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:18px;text-align:center;box-shadow:var(--sh0)}
+.trust-block h3{font-size:14px;font-weight:700;color:var(--accent);margin-bottom:3px}
+.trust-block p{font-size:13px;color:var(--muted);line-height:1.5}
+.sec-title{font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;padding:18px 16px 8px}
 
-   /*AQUA WINDOW*/
+/* ── SERVICE CARDS ── */
+.service-card{display:flex;align-items:center;gap:14px;background:var(--surface);border:1.5px solid var(--border);border-radius:16px;padding:15px 16px;margin:7px 16px;cursor:pointer;box-shadow:var(--sh0);transition:transform 55ms cubic-bezier(.4,0,.6,1),box-shadow 110ms,opacity 60ms;touch-action:manipulation;user-select:none}
+.service-card:not(:active):hover{box-shadow:var(--sh1);transform:translateY(-2px)}
+.service-card:active{transform:scale(0.94) translateY(1px);box-shadow:0 1px 4px rgba(0,0,0,.06);opacity:.74}
+.svc-icon{font-size:28px;flex-shrink:0}
+.svc-name{font-size:15px;font-weight:700}
+.svc-desc{font-size:12px;color:var(--muted);margin-top:2px}
+.svc-price{font-size:17px;font-weight:800;color:var(--accent);flex-shrink:0}
 
-.window {
-  width: 100%;
-  max-width: 420px;
-  margin: 0 auto;
-  background: linear-gradient(180deg, var(--win-top) 0%, var(--win-bot) 100%);
-  border-radius: 18px;
-  border: 1.5px solid rgba(255,255,255,0.9);
-  box-shadow:
-    0 2px 0   rgba(255,255,255,0.8) inset,
-    0 20px 60px rgba(30,70,140,0.22),
-    0 2px 8px  rgba(30,70,140,0.18);
-  overflow: hidden;
-}
+/* ── GALLERY ── */
+.gallery-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin:0 16px}
+.gallery-item{aspect-ratio:1/1;overflow:hidden;cursor:pointer;border-radius:16px;box-shadow:var(--sh0);transition:transform 55ms cubic-bezier(.4,0,.6,1),box-shadow 110ms,opacity 65ms;touch-action:manipulation}
+.gallery-item:not(:active):hover{box-shadow:var(--sh1);transform:scale(1.025)}
+.gallery-item:active{transform:scale(0.93);opacity:.73}
+.gallery-item img{width:100%;height:100%;object-fit:cover;display:block}
+.gallery-item.wide{grid-column:span 2;aspect-ratio:16/7}
+.gallery-item.landscape{grid-column:span 2;aspect-ratio:16/9}
 
-/* Titlebar */
-.titlebar {
-  height: 36px;
-  background: linear-gradient(180deg,
-    rgba(255,255,255,0.5) 0%,
-    rgba(180,210,240,0.6) 50%,
-    rgba(150,190,230,0.4) 100%
-  );
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  padding: 0 10px;
-  gap: 7px;
-  position: relative;
-}
-.titlebar-title {
-  position: absolute;
-  left: 50%; transform: translateX(-50%);
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: var(--sub);
-  letter-spacing: 0.04em;
-  white-space: nowrap;
-}
-/* Светофор */
-.tf { width: 13px; height: 13px; border-radius: 50%; cursor: pointer; flex-shrink: 0; }
-.tf-red   { background: radial-gradient(circle at 35% 35%, #ff8a8a, #d02020); box-shadow: 0 0 0 1px rgba(180,20,20,0.4); }
-.tf-yel   { background: radial-gradient(circle at 35% 35%, #ffe98a, #d0a020); box-shadow: 0 0 0 1px rgba(180,130,20,0.4); }
-.tf-grn   { background: radial-gradient(circle at 35% 35%, #8aff8a, #20a020); box-shadow: 0 0 0 1px rgba(20,130,20,0.4); }
+/* ── SETTINGS ── */
+.s-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--border)}
+.s-row:last-child{border-bottom:none}
+.s-label{font-size:15px;font-weight:500}
+.s-sub{font-size:12px;color:var(--muted);margin-top:2px}
+.s-head{font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:12px}
+.lang-btns{display:flex;gap:6px}
+.lang-btn{padding:7px 16px;border-radius:10px;border:1.5px solid var(--border);background:none;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;box-shadow:var(--sh0);transition:border-color 55ms,color 55ms,transform 55ms,opacity 60ms;touch-action:manipulation;user-select:none}
+.lang-btn:active{transform:scale(0.88);opacity:.7}
+.lang-btn.active{border-color:var(--accent);color:var(--accent);background:rgba(74,127,208,.08)}
 
-/* Полоса-блик на всём окне */
-.window-shine {
-  position: absolute;
-  top: 36px; left: 0; right: 0;
-  height: 60px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.35), transparent);
-  pointer-events: none;
-  z-index: 1;
-}
+/* ── ADMIN ── */
+.adm-login{display:flex;flex-direction:column;align-items:center;padding:60px 24px}
+.adm-tabs{display:flex;margin:12px 16px;border-radius:14px;overflow:hidden;border:1px solid var(--border);box-shadow:var(--sh0)}
+.adm-tab{flex:1;padding:11px 2px;text-align:center;background:var(--surface);border:none;color:var(--muted);font-size:10.5px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s,color .2s,transform 55ms;touch-action:manipulation;letter-spacing:.1px}
+.adm-tab:active{transform:scale(0.93)}
+.adm-tab.active{background:var(--accent);color:#fff}
+.bk-item{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 16px;margin:8px 16px;box-shadow:var(--sh0)}
+.bk-item.pending{border-right:3.5px solid var(--accent)}
+.bk-item.confirmed{border-right:3.5px solid var(--success)}
+.bk-item.cancelled{border-right:3.5px solid var(--danger);opacity:.5}
+[dir="ltr"] .bk-item.pending{border-right:1px solid var(--border);border-left:3.5px solid var(--accent)}
+[dir="ltr"] .bk-item.confirmed{border-right:1px solid var(--border);border-left:3.5px solid var(--success)}
+[dir="ltr"] .bk-item.cancelled{border-right:1px solid var(--border);border-left:3.5px solid var(--danger)}
+.bk-meta{display:flex;justify-content:space-between;align-items:flex-start}
+.bk-name{font-size:16px;font-weight:700}
+.bk-lbl{font-size:11px;padding:4px 10px;border-radius:6px;font-weight:700}
+.sp{background:#e4f0d4;color:#4a7210}.sc{background:#d2f0e0;color:#186040}.sx{background:#fde0e0;color:#aa2222}
+.bk-detail{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.85}
+.bk-actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.acct-item{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 16px;margin:8px 16px;display:flex;align-items:center;gap:14px;box-shadow:var(--sh0)}
+.acct-av{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--accent-l),var(--accent));display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#fff;flex-shrink:0}
+.bl-item{background:var(--surface);border:1px solid var(--border);border-left:3.5px solid var(--danger);border-radius:14px;padding:13px 16px;margin:8px 16px;display:flex;align-items:center;gap:12px;box-shadow:var(--sh0)}
+[dir="ltr"] .bl-item{border-left:3.5px solid var(--danger);border-right:1px solid var(--border)}
+.wa-status{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;padding:4px 10px;border-radius:8px}
+.wa-status.ok{background:#d2f0e0;color:#186040}
+.wa-status.off{background:#f0e8d2;color:#7a5010}
 
-.win-body {
-  padding: 2rem 1.6rem 1.8rem;
-  position: relative;
-}
+/* ── MONITOR BOARD ── */
+@keyframes monPulse{0%,100%{opacity:1}50%{opacity:.5}}
+.monitor-board{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:10px 10px 80px;direction:ltr}
+.mon-col{border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+.mon-col-hd{padding:10px 10px 8px;display:flex;align-items:center;justify-content:space-between;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.8px;color:#fff;gap:4px}
+.mon-col-hd .mon-label{flex:1;line-height:1.3}
+.mon-cnt{min-width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.28);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0}
+.mon-col-body{padding:6px;flex:1;min-height:100px}
+.mon-card{background:#fff;border-radius:10px;padding:10px;margin-bottom:6px;box-shadow:var(--sh1);position:relative}
+.mon-card.is-today{box-shadow:0 0 0 2px var(--accent),var(--sh1)}
+.mon-card.is-today::after{content:'●';position:absolute;top:6px;right:7px;font-size:7px;color:var(--accent);animation:monPulse 2s ease-in-out infinite}
+.mon-time{font-size:19px;font-weight:800;letter-spacing:-.5px;line-height:1;color:var(--text)}
+.mon-name{font-size:12px;font-weight:700;margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mon-svc{font-size:10px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mon-adv{width:100%;margin-top:8px;padding:7px 4px;border-radius:8px;border:none;font-size:11px;font-weight:800;cursor:pointer;touch-action:manipulation;font-family:inherit;transition:transform 55ms,opacity 60ms;letter-spacing:.1px}
+.mon-adv:active{transform:scale(0.84);opacity:.65}
 
-/* 
-   LAYOUT
- */
-.app {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 1.2rem 1rem;
-  gap: 1.2rem;
-}
+/* ── WA STEPS ── */
+.wa-steps-card{background:linear-gradient(135deg,rgba(74,127,208,.07),rgba(74,127,208,.03));border:1.5px solid rgba(74,127,208,.2);border-radius:16px;padding:16px;margin-top:14px}
+.wa-steps-title{font-size:13px;font-weight:800;color:var(--accent);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.wa-step{display:flex;align-items:flex-start;gap:12px;padding:8px 0;border-bottom:1px solid rgba(74,127,208,.12)}
+.wa-step:last-child{border-bottom:none}
+.wa-step-num{width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.wa-step-body{flex:1}
+.wa-step-txt{font-size:13px;font-weight:700;line-height:1.4;color:var(--text)}
+.wa-step-sub{font-size:11px;color:var(--muted);margin-top:2px;line-height:1.4}
 
-.step { display: none; width: 100%; }
-.step.active { display: block; }
+/* ── REGISTRATION ── */
+.reg-sheet{position:fixed;inset:0;z-index:250;background:rgba(0,0,0,.48);display:flex;align-items:flex-end;transition:opacity 380ms ease;opacity:0;pointer-events:none}
+.reg-sheet.open{opacity:1;pointer-events:auto}
+.reg-body{background:var(--surface);border-radius:26px 26px 0 0;padding:8px 20px 48px;width:100%;transform:translateY(100%);transition:transform 380ms cubic-bezier(.4,0,.2,1);box-shadow:0 -8px 52px rgba(0,0,0,.16)}
+.reg-sheet.open .reg-body{transform:translateY(0)}
+.reg-handle{width:38px;height:4px;background:var(--border);border-radius:4px;margin:12px auto 22px}
 
-/* Анимация появления */
-.step.active .window {
-  animation: popIn 0.35s cubic-bezier(0.22,1,0.36,1) both;
-}
-@keyframes popIn {
-  from { opacity: 0; transform: scale(0.93) translateY(16px); }
-  to   { opacity: 1; transform: none; }
-}
-
-/*
-   AQUA BUTTON
-*/
-.btn {
-  display: block;
-  width: 100%;
-  font-family: 'Heebo', sans-serif;
-  font-size: 0.97rem;
-  font-weight: 700;
-  padding: 0.65rem 1.2rem;
-  border-radius: 999px;
-  border: 1.5px solid rgba(30,80,160,0.35);
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  text-align: center;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.25);
-  color: var(--btn-text);
-  background: linear-gradient(180deg,
-    var(--btn-top) 0%,
-    var(--btn-mid) 50%,
-    var(--btn-bot) 100%
-  );
-  box-shadow:
-    0 1px 0 var(--btn-shine) inset,
-    0 4px 12px var(--btn-shad),
-    0 1px 3px rgba(0,0,0,0.2);
-  transition: filter 0.12s, transform 0.1s;
-  letter-spacing: 0.01em;
-  margin-bottom: 0.6rem;
-}
-.btn::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 50%;
-  background: linear-gradient(180deg,
-    rgba(255,255,255,0.55),
-    rgba(255,255,255,0.08)
-  );
-  border-radius: 999px 999px 0 0;
-  pointer-events: none;
-}
-.btn:hover  { filter: brightness(1.08); transform: translateY(-1px); }
-.btn:active { filter: brightness(0.95); transform: translateY(1px); box-shadow: 0 1px 0 var(--btn-shine) inset, 0 2px 6px var(--btn-shad); }
-
-.btn-green {
-  background: linear-gradient(180deg, var(--green-top), var(--green-bot));
-  border-color: rgba(20,100,20,0.35);
-}
-.btn-red {
-  background: linear-gradient(180deg, var(--red-top), var(--red-bot));
-  border-color: rgba(120,20,20,0.35);
-}
-.btn-wa {
-  background: linear-gradient(180deg, #6ed660, #25a244);
-  border-color: rgba(20,100,40,0.35);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  font-size: 1rem;
-  text-decoration: none;
-  color: #fff;
-}
-.btn:last-child { margin-bottom: 0; }
-
-/* 
-   TYPOGRAPHY
- */
-.win-icon { font-size: 3rem; text-align: center; margin-bottom: 0.5rem; display: block; }
-.win-title {
-  font-size: clamp(1.4rem, 5vw, 1.9rem);
-  font-weight: 900;
-  color: var(--text);
-  text-align: center;
-  margin-bottom: 0.35rem;
-  line-height: 1.2;
-}
-.win-sub {
-  font-size: 0.88rem;
-  color: var(--sub);
-  text-align: center;
-  line-height: 1.65;
-  margin-bottom: 1.4rem;
-}
-.hr {
-  border: none;
-  border-top: 1px solid var(--border);
-  margin: 1.1rem 0;
-}
-
-/* 
-   DETAIL PILLS
- */
-.pills {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 0.6rem;
-  margin-bottom: 1.2rem;
-}
-.pill {
-  background: rgba(255,255,255,0.6);
-  border: 1px solid rgba(180,210,240,0.8);
-  border-radius: 10px;
-  box-shadow: 0 1px 0 rgba(255,255,255,0.9) inset;
-  padding: 0.7rem 0.4rem;
-  text-align: center;
-  font-size: 0.72rem;
-  color: var(--sub);
-}
-.pill strong { display: block; font-size: 0.9rem; color: var(--text); font-weight: 700; margin-top: 0.2rem; }
-
-/* 
-   FORM
- */
-.form-row { margin-bottom: 0.8rem; text-align: right; }
-label { display: block; font-size: 0.73rem; font-weight: 700; color: var(--sub); margin-bottom: 0.28rem; letter-spacing: 0.04em; }
-input, select, textarea {
-  width: 100%;
-  font-family: 'Heebo', sans-serif;
-  font-size: 0.93rem;
-  padding: 0.55rem 0.85rem;
-  border-radius: 8px;
-  border: 1.5px solid rgba(140,180,220,0.7);
-  background: rgba(255,255,255,0.75);
-  color: var(--text);
-  direction: rtl;
-  outline: none;
-  box-shadow: 0 1px 3px rgba(30,70,140,0.08) inset;
-  transition: border-color 0.15s, box-shadow 0.15s;
-}
-input:focus, select:focus, textarea:focus {
-  border-color: #4a90d9;
-  box-shadow: 0 0 0 3px rgba(74,144,217,0.2), 0 1px 3px rgba(30,70,140,0.08) inset;
-}
-textarea { resize: none; height: 70px; }
-select option { background: #e8f0fe; }
-
-/*
-   STEP 1: ГЛАВНОЕ МЕНЮ
-*/
-.menu-logo {
-  text-align: center;
-  margin-bottom: 1.2rem;
-}
-.menu-logo .big-emoji { font-size: 4rem; display: block; }
-.menu-logo h1 { font-size: 1.5rem; font-weight: 900; margin-top: 0.3rem; }
-.menu-logo p  { font-size: 0.8rem; color: var(--sub); margin-top: 0.15rem; }
-
-/*
-   STEP 3: УБЕГАЮЩАЯ КНОПКА
-*/
-.respect-area {
-  position: relative;
-  height: 90px;
-  margin: 0.5rem 0 1rem;
-}
-.btn-run {
-  position: absolute;
-  width: auto;
-  padding: 0.55rem 1.3rem;
-  font-size: 0.88rem;
-  display: inline-block;
-  transition: left 0.18s cubic-bezier(.34,1.56,.64,1), top 0.18s cubic-bezier(.34,1.56,.64,1), opacity 0.3s;
-}
-.btn-run.gone { opacity: 0; pointer-events: none; }
-.ghost-msg {
-  font-size: 0.75rem;
-  color: var(--sub);
-  text-align: center;
-  margin-top: 0.4rem;
-}
-
-/*
-   STEP 5: ПОДАРОК
-*/
-.smirk {
-  font-size: 2.8rem;
-  display: block;
-  text-align: center;
-  margin-bottom: 0.5rem;
-  animation: wobble 2s ease-in-out infinite;
-}
-@keyframes wobble {
-  0%,100% { transform: rotate(-4deg) scale(1);   }
-  50%      { transform: rotate( 4deg) scale(1.08); }
-}
-
-/*
-   ПРОГРЕСС ТОЧКИ
-*/
-.dots {
-  display: flex;
-  justify-content: center;
-  gap: 0.4rem;
-  margin-bottom: 0.9rem;
-}
-.dot {
-  width: 7px; height: 7px;
-  border-radius: 50%;
-  background: rgba(30,70,140,0.15);
-  transition: all 0.25s;
-}
-.dot.done   { background: #4a90d9; }
-.dot.active { background: #1a4a90; transform: scale(1.4); }
-
-/*
-   NOTE BOX
-*/
-.note {
-  background: rgba(255,255,160,0.55);
-  border: 1px solid rgba(200,180,40,0.4);
-  border-radius: 8px;
-  padding: 0.7rem 0.9rem;
-  font-size: 0.8rem;
-  color: #5a4a10;
-  line-height: 1.6;
-  margin-bottom: 1rem;
-  text-align: right;
-}
-
-/*
-   CONFETTI
-*/
-.cp {
-  position: fixed;
-  width: 8px; height: 8px;
-  border-radius: 2px;
-  pointer-events: none;
-  z-index: 999;
-  animation: fall var(--d) ease-in var(--del) both;
-}
-@keyframes fall {
-  0%   { transform: translateX(0) rotate(0deg);   opacity: 1; }
-  100% { transform: translateX(var(--tx)) rotate(600deg) translateY(100vh); opacity: 0; }
-}
+/* ── WIZARD ── */
+.wiz-sheet{position:fixed;inset:0;z-index:200;background:var(--bg);display:flex;flex-direction:column;transform:translateY(100%);transition:transform 380ms cubic-bezier(.4,0,.2,1)}
+.wiz-sheet.open{transform:translateY(0)}
+.wiz-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border);flex-shrink:0;background:var(--surface);box-shadow:var(--sh0)}
+.wiz-icon-btn{width:38px;height:38px;border-radius:50%;background:var(--surface2);border:1px solid var(--border);color:var(--text);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;touch-action:manipulation;transition:transform 55ms,opacity 60ms;font-family:inherit;box-shadow:var(--sh0)}
+.wiz-icon-btn:active{transform:scale(0.80);opacity:.68}
+.wiz-dots{display:flex;gap:6px;align-items:center}
+.wiz-dot{width:7px;height:7px;border-radius:50%;background:var(--border);transition:all 300ms cubic-bezier(.4,0,.2,1)}
+.wiz-dot.active{width:24px;border-radius:4px;background:var(--accent)}
+.wiz-track-wrapper{flex:1;overflow:hidden;position:relative;direction:ltr}
+.wiz-track{display:flex;height:100%;width:500%;transition:transform 340ms cubic-bezier(.4,0,.2,1);direction:ltr}
+.wiz-panel{width:20%;height:100%;overflow-y:auto;padding:24px 20px 20px;flex-shrink:0}
+.wiz-footer{padding:14px 20px 38px;border-top:1px solid var(--border);flex-shrink:0;background:var(--surface)}
+.wiz-h{font-size:24px;font-weight:800;margin-bottom:6px;letter-spacing:-.3px}
+.wiz-sub{font-size:14px;color:var(--muted);margin-bottom:22px;line-height:1.5}
+.wiz-svc{display:flex;align-items:center;gap:16px;background:var(--surface);border:1.5px solid var(--border);border-radius:18px;padding:18px;margin-bottom:10px;cursor:pointer;box-shadow:var(--sh0);transition:transform 55ms cubic-bezier(.4,0,.6,1),box-shadow 110ms,opacity 60ms;touch-action:manipulation;user-select:none}
+.wiz-svc:not(:active):hover{box-shadow:var(--sh1);transform:translateY(-2px)}
+.wiz-svc:active{transform:scale(0.94);opacity:.72}
+.wiz-svc.sel{border-color:var(--accent);background:rgba(74,127,208,.07)}
+.wiz-svc .wi{font-size:36px;flex-shrink:0}.wiz-svc .wn{font-size:17px;font-weight:700}.wiz-svc .wd{font-size:13px;color:var(--muted);margin-top:3px}.wiz-svc .wp{font-size:20px;font-weight:800;color:var(--accent);flex-shrink:0}
+.cal-nav-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.cal-month-lbl{font-size:18px;font-weight:700}
+.cal-btn{width:38px;height:38px;border-radius:10px;background:var(--surface2);border:1px solid var(--border);color:var(--text);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;touch-action:manipulation;transition:transform 55ms,opacity 60ms;font-family:inherit;box-shadow:var(--sh0)}
+.cal-btn:active{transform:scale(0.82);opacity:.68}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;direction:ltr}
+.cal-dname{text-align:center;font-size:11px;font-weight:700;color:var(--muted);padding:4px 0 10px}
+.cal-day{position:relative;aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:50%;font-size:14px;font-weight:600;background:none;border:none;color:var(--text);cursor:pointer;touch-action:manipulation;transition:transform 55ms cubic-bezier(.4,0,.6,1),opacity 60ms,background 150ms,color 150ms;line-height:1;padding:0}
+.cal-day:active:not(:disabled){transform:scale(0.74);opacity:.68}
+.cal-day.today{color:var(--accent);font-weight:800}
+.cal-day.sel{background:var(--accent);color:#fff;box-shadow:0 2px 12px rgba(74,127,208,.42)}
+.cal-day:disabled{color:var(--border);cursor:default}
+.bk-dot{width:4px;height:4px;border-radius:50%;background:var(--accent);position:absolute;bottom:3px;left:50%;transform:translateX(-50%)}
+.cal-day.sel .bk-dot{background:rgba(255,255,255,.6)}
+.tg-label{font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin:18px 0 10px}
+.tg-label:first-child{margin-top:0}
+.time-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:4px}
+.t-slot{padding:12px 6px;text-align:center;border-radius:10px;background:var(--surface);border:1.5px solid var(--border);color:var(--text);font-size:14px;font-weight:600;cursor:pointer;touch-action:manipulation;transition:transform 55ms cubic-bezier(.4,0,.6,1),opacity 60ms,background 150ms,border-color 150ms,box-shadow 110ms;font-family:inherit;box-shadow:var(--sh0)}
+.t-slot:not(:disabled):not(.sel):hover{box-shadow:var(--sh1)}
+.t-slot:active:not(:disabled){transform:scale(0.83);opacity:.66}
+.t-slot.sel{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 3px 12px rgba(74,127,208,.4)}
+.t-slot:disabled{opacity:.24;cursor:default;text-decoration:line-through}
+.confirm-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;margin-bottom:20px;box-shadow:var(--sh0)}
+.c-row{display:flex;justify-content:space-between;align-items:center;padding:15px 18px;border-bottom:1px solid var(--border);font-size:14px}
+.c-row:last-child{border-bottom:none}
+.c-lbl{color:var(--muted);font-weight:600}.c-val{font-weight:700;text-align:end}
+.modal-bg{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.5);display:flex;align-items:flex-end;justify-content:center}
+.modal-bg.hidden{display:none}
+.modal{background:var(--surface);border-radius:22px 22px 0 0;padding:24px 20px 48px;width:100%;max-height:88vh;overflow-y:auto}
+.modal-handle{width:38px;height:4px;background:var(--border);border-radius:4px;margin:0 auto 22px}
+.toast{position:fixed;top:22px;left:50%;transform:translateX(-50%);background:rgba(28,24,20,.92);color:#fff;padding:12px 26px;border-radius:14px;font-size:14px;font-weight:600;z-index:400;opacity:0;transition:opacity .2s;white-space:nowrap;box-shadow:var(--sh1)}
+.toast.show{opacity:1}
+.empty{text-align:center;padding:40px 24px;color:var(--muted)}
+.empty .ei{font-size:38px;margin-bottom:10px}
 </style>
 </head>
 <body>
-<div class="app">
 
-<!--
-     ШАГ 1: ГЛАВНОЕ МЕНЮ
--->
-<div class="step active" id="s1">
-  <div class="window">
-    <div class="titlebar">
-      <div class="tf tf-red"></div>
-      <div class="tf tf-yel"></div>
-      <div class="tf tf-grn"></div>
-      <span class="titlebar-title">יום הולדת</span>
-    </div>
-    <div class="win-body">
-      <div class="menu-logo">
-        <span class="big-emoji">🎂</span>
-        <h1>ברוך הבא!</h1>
-        <p>בחר מה לעשות</p>
+<!-- ══ HOME ══ -->
+<div id="sHome" class="screen active">
+  <div class="hero">
+    <div class="hero-bg"></div><div class="hero-grad"></div>
+    <div class="hero-logo"><img src="logo.png" alt="Guy Zohari Nails" id="logoImg"/></div>
+    <div class="hero-title" id="hTitle"></div>
+    <div class="hero-sub" id="hSub"></div>
+    <div class="hero-cta"><button class="btn btn-hero" data-action="tryBook" id="hBookBtn"></button></div>
+  </div>
+  <div id="actBkBanner" class="act-bk">
+    <div class="act-bk-pulse"></div>
+    <div class="act-bk-txt" id="actBkTxt" style="font-size:13px;font-weight:600;color:var(--accent);flex:1"></div>
+    <button class="btn btn-ghost btn-sm" data-action="go" data-screen="sSettings" id="actBkBtn"></button>
+  </div>
+  <div class="badge-row" id="hBadges"></div>
+  <div class="trust-block"><h3 id="hTrustTitle"></h3><p id="hTrustBody"></p></div>
+  <p class="sec-title" id="hSecSvc"></p>
+  <div id="homeServices"></div>
+  <p class="sec-title" id="hSecGal"></p>
+  <div class="gallery-grid" id="homeGallery"></div>
+  <div style="height:20px"></div>
+  <div style="text-align:center;padding:0 16px 8px">
+    <a href="https://t.me/Danlivee" target="_blank" style="display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--muted);text-decoration:none;font-weight:600;opacity:.65;transition:opacity .2s" onmouseenter="this.style.opacity='.95'" onmouseleave="this.style.opacity='.65'">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8l-1.7 8.02c-.12.58-.46.72-.93.45l-2.57-1.89-1.24 1.19c-.14.13-.25.25-.51.25l.18-2.6 4.71-4.25c.2-.18-.05-.28-.32-.1L7.6 14.4l-2.52-.79c-.55-.17-.56-.55.12-.81l9.84-3.79c.46-.17.86.11.7.79z" fill="currentColor"/></svg>
+      Разработано @Danlivee
+    </a>
+  </div>
+</div>
+
+<!-- ══ SETTINGS ══ -->
+<div id="sSettings" class="screen">
+  <div class="ph"><h1 id="stTitle"></h1></div>
+  <div class="card">
+    <div class="s-head" id="stApp"></div>
+    <div class="s-row">
+      <div class="s-label" id="stLang"></div>
+      <div class="lang-btns">
+        <button class="lang-btn" data-lang="he">עברית</button>
+        <button class="lang-btn" data-lang="ru">Русский</button>
       </div>
-      <button class="btn" onclick="go(2)">📬 לפתוח הזמנה</button>
-      <button class="btn btn-green" onclick="go(3)">✅ לאשר הגעה</button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="s-head" id="stAcct"></div>
+    <div id="accountSection"></div>
+  </div>
+  <div class="card">
+    <div class="s-head" id="stAbout"></div>
+    <div class="s-row"><div class="s-label">📞 050-659-8734</div><a href="tel:0506598734" class="btn btn-ghost btn-sm" id="stCall"></a></div>
+    <div class="s-row" style="border:none"><div class="s-label">📍 <span id="stLoc"></span></div></div>
+  </div>
+</div>
+
+<!-- ══ ADMIN ══ -->
+<div id="sAdmin" class="screen">
+  <div id="adminLogin" class="adm-login">
+    <div style="font-size:48px;margin-bottom:16px">🔐</div>
+    <h2 style="margin-bottom:20px;font-size:22px" id="admLoginTitle"></h2>
+    <div style="width:100%;max-width:320px">
+      <div class="form-group"><label id="admPwdLbl"></label><input type="password" id="adminPwd" autocomplete="current-password"/></div>
+      <button class="btn btn-primary btn-full" data-action="adminLogin" id="admLoginBtn"></button>
+      <button class="btn btn-ghost btn-full" style="margin-top:10px" data-action="go" data-screen="sHome" id="admBackBtn"></button>
+    </div>
+  </div>
+  <div id="adminDash" style="display:none">
+    <div class="ph"><h1>⚙️ <span id="admDashTitle"></span></h1></div>
+    <div style="display:flex;justify-content:flex-end;padding:10px 16px">
+      <button class="btn btn-ghost btn-sm" data-action="adminLogout" id="admLogoutBtn"></button>
+    </div>
+    <div class="adm-tabs">
+      <button class="adm-tab active" data-action="admTab" data-tab="bookings" id="admTabBk"></button>
+      <button class="adm-tab" data-action="admTab" data-tab="accounts" id="admTabAcc"></button>
+      <button class="adm-tab" data-action="admTab" data-tab="blacklist" id="admTabBl"></button>
+      <button class="adm-tab" data-action="admTab" data-tab="gallery" id="admTabGal"></button>
+      <button class="adm-tab" data-action="admTab" data-tab="settings" id="admTabSet"></button>
+    </div>
+    <!-- BOOKINGS -->
+    <div id="tabBookings">
+      <div style="padding:10px 16px;display:flex;gap:7px;flex-wrap:wrap;align-items:center">
+        <button class="btn btn-ghost btn-sm" data-action="filterBk" data-filter="all" id="fAll"></button>
+        <button class="btn btn-ghost btn-sm" data-action="filterBk" data-filter="pending" id="fPend"></button>
+        <button class="btn btn-ghost btn-sm" data-action="filterBk" data-filter="confirmed" id="fConf"></button>
+        <div style="flex:1"></div>
+        <button class="btn btn-ghost btn-sm" data-action="toggleBkView" id="viewToggleBtn" style="font-size:16px;padding:8px 14px">📊</button>
+      </div>
+      <div id="bookingsList"></div>
+      <div id="monitorBoard" class="monitor-board" style="display:none"></div>
+    </div>
+    <!-- ACCOUNTS -->
+    <div id="tabAccounts" style="display:none"><div id="accountsList"></div></div>
+    <!-- BLACKLIST -->
+    <div id="tabBlacklist" style="display:none">
+      <div class="card">
+        <p style="font-weight:700;margin-bottom:12px" id="blAddTitle"></p>
+        <div class="form-group"><label id="blPhoneLbl"></label><input type="tel" id="blPhone" placeholder="+972..."/></div>
+        <div class="form-group"><label id="blNameLbl"></label><input type="text" id="blName"/></div>
+        <div class="form-group"><label id="blReasonLbl"></label><input type="text" id="blReason"/></div>
+        <button class="btn btn-danger btn-sm" data-action="addBlacklist" id="blAddBtn"></button>
+      </div>
+      <p class="sec-title" id="blListTitle"></p>
+      <div id="blacklistItems"></div>
+    </div>
+    <!-- GALLERY -->
+    <div id="tabGallery" style="display:none">
+      <p class="sec-title" id="admUploadTitle"></p>
+      <div class="card">
+        <div class="form-group"><label id="admUploadLbl"></label><input type="file" id="galleryUpload" accept="image/*" style="color:var(--text)"/></div>
+        <div class="form-group"><label id="admCaptionLbl"></label><input type="text" id="galleryCaption"/></div>
+        <button class="btn btn-primary" data-action="uploadGallery" id="admUploadBtn"></button>
+      </div>
+      <p class="sec-title" id="admExistingTitle"></p>
+      <div id="adminGalleryList" style="padding:0 16px"></div>
+    </div>
+    <!-- SETTINGS -->
+    <div id="tabSettings" style="display:none">
+      <div class="card">
+        <p style="font-weight:700;margin-bottom:14px" id="admSetTitle"></p>
+        <div class="form-group"><label id="admPhoneLbl"></label><input type="text" id="settingPhone"/></div>
+        <div class="form-group"><label id="admPwdChangeLbl"></label><input type="password" id="settingPwd"/></div>
+        <button class="btn btn-primary btn-sm" data-action="saveSettings" id="admSaveBtn"></button>
+      </div>
+      <div class="card" style="margin-top:0">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+          <p style="font-weight:700" id="waApiTitle"></p>
+          <span id="waStatusBadge" class="wa-status off">⚪ Offline</span>
+        </div>
+        <div class="form-group"><label id="waTokenLbl"></label><input type="text" id="waToken" autocomplete="off" placeholder="EAAxxxxx..."/></div>
+        <div class="form-group"><label id="waPhoneIdLbl"></label><input type="text" id="waPhoneId" placeholder="1234567890"/></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn btn-primary btn-sm" data-action="saveWaApi" id="waSaveBtn"></button>
+          <button class="btn btn-ghost btn-sm" data-action="testWaApi" id="waTestBtn"></button>
+        </div>
+        <div id="waApiNote"></div>
+      </div>
+      <div class="card" style="margin-top:0">
+        <p style="font-weight:700;margin-bottom:12px" id="admDataTitle"></p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn btn-ghost btn-sm" data-action="exportData" id="admExportBtn"></button>
+          <button class="btn btn-danger btn-sm" data-action="clearBookings" id="admClearBtn"></button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
-<!--
-     ШАГ 2: ПРИГЛАШЕНИЕ
- -->
-<div class="step" id="s2">
-  <div class="window">
-    <div class="titlebar">
-      <div class="tf tf-red" onclick="go(1)"></div>
-      <div class="tf tf-yel"></div>
-      <div class="tf tf-grn"></div>
-      <span class="titlebar-title">הזמנה.rtf</span>
-    </div>
-    <div class="win-body">
-      <div class="dots">
-        <div class="dot done"></div><div class="dot active"></div>
-        <div class="dot"></div><div class="dot"></div><div class="dot"></div>
-      </div>
-      <span class="win-icon">🎉</span>
-      <h2 class="win-title">הזמנה ליום ההולדת שלי!</h2>
-      <p class="win-sub">
-        אני מזמין אותך לחגוג איתי. נשב יחד, נאכל המבורגרים
-        משובחים ונהנה מאווירה טובה. הנוכחות שלך היא המתנה הכי גדולה בשבילי 💛
-      </p>
-      <div class="pills">
-        <div class="pill">📅 תאריך<strong>21 ביוני</strong></div>
-        <div class="pill">🕡 שעה<strong>18:30</strong></div>
-        <div class="pill">📍 כתובת<strong>קצרין 5</strong></div>
-      </div>
-      <div class="note">
-        ℹ️ אשמח לאישור הגעה עד <strong>19 ביוני</strong>. אם יש לך אלרגיות, ציין בשלב הבא.
-      </div>
-      <button class="btn btn-green" onclick="go(3)">לאשר הגעה ←</button>
-      <button class="btn" onclick="go(1)" style="background:linear-gradient(180deg,#c8d8f0,#a0b8d8);border-color:rgba(80,120,180,0.3);color:var(--sub);text-shadow:none;">חזרה לתפריט</button>
-    </div>
+<!-- NAV -->
+<nav>
+  <button class="nav-btn active" data-action="go" data-screen="sHome">
+    <span class="icon">🏠</span><span id="navHome"></span>
+    <span class="nav-dot" id="navDot"></span>
+  </button>
+  <button class="nav-btn" data-action="go" data-screen="sSettings">
+    <span class="icon">⚙️</span><span id="navSettings"></span>
+  </button>
+</nav>
+
+<!-- REGISTRATION -->
+<div id="regSheet" class="reg-sheet">
+  <div class="reg-body">
+    <div class="reg-handle"></div>
+    <div style="font-size:22px;font-weight:800;margin-bottom:6px" id="regTitle"></div>
+    <div style="font-size:14px;color:var(--muted);margin-bottom:22px;line-height:1.5" id="regSub"></div>
+    <div class="form-group"><label id="regNameLbl"></label><input type="text" id="regName" autocomplete="name"/></div>
+    <div class="form-group"><label id="regPhoneLbl"></label><input type="tel" id="regPhone" placeholder="05X-XXXXXXX" autocomplete="tel"/></div>
+    <button class="btn btn-primary btn-full" style="font-size:16px;padding:15px" data-action="submitReg" id="regSubmitBtn"></button>
   </div>
 </div>
 
-<!--
-     ШАГ 3: УВАЖЕНИЕ (убегающая кнопка)
--->
-<div class="step" id="s3">
-  <div class="window">
-    <div class="titlebar">
-      <div class="tf tf-red" onclick="go(1)"></div>
-      <div class="tf tf-yel"></div>
-      <div class="tf tf-grn"></div>
-      <span class="titlebar-title">שאלה חשובה מאוד</span>
+<!-- WIZARD -->
+<div id="wizardSheet" class="wiz-sheet">
+  <div class="wiz-header">
+    <button class="wiz-icon-btn" data-action="wizBack" id="wizBackBtn" style="visibility:hidden">‹</button>
+    <div class="wiz-dots">
+      <div class="wiz-dot active"></div><div class="wiz-dot"></div><div class="wiz-dot"></div><div class="wiz-dot"></div><div class="wiz-dot"></div>
     </div>
-    <div class="win-body">
-      <div class="dots">
-        <div class="dot done"></div><div class="dot done"></div>
-        <div class="dot active"></div><div class="dot"></div><div class="dot"></div>
-      </div>
-      <span class="win-icon">🤔</span>
-      <h2 class="win-title">אתה מכבד אותי?</h2>
-      <p class="win-sub">לפני שממשיכים, צריך לענות על השאלה הכי חשובה בעולם</p>
-      <div class="respect-area" id="rArea">
-        <button class="btn btn-green" style="position:absolute;right:0;top:50%;transform:translateY(-50%);width:48%;" onclick="go(4)">כן בטח! 😄</button>
-        <button class="btn btn-red btn-run" id="noBtn" style="left:0;top:50%;transform:translateY(-50%);width:44%;" onmouseenter="runAway()" ontouchstart="runAway(event)">לא 😈</button>
-      </div>
-      <p class="ghost-msg" id="noMsg"></p>
+    <button class="wiz-icon-btn" data-action="wizClose">✕</button>
+  </div>
+  <div class="wiz-track-wrapper">
+    <div class="wiz-track" id="wizTrack">
+      <div class="wiz-panel" id="wizS1"></div>
+      <div class="wiz-panel" id="wizS2"></div>
+      <div class="wiz-panel" id="wizS3"></div>
+      <div class="wiz-panel" id="wizS4"></div>
+      <div class="wiz-panel" id="wizS5"></div>
     </div>
+  </div>
+  <div class="wiz-footer">
+    <button class="btn btn-primary btn-full" style="font-size:16px;padding:16px" data-action="wizNext" id="wizNextBtn"></button>
   </div>
 </div>
 
-<!--
-     ШАГ 4: ПОДАРОК
--->
-<div class="step" id="s4">
-  <div class="window">
-    <div class="titlebar">
-      <div class="tf tf-red" onclick="go(1)"></div>
-      <div class="tf tf-yel"></div>
-      <div class="tf tf-grn"></div>
-      <span class="titlebar-title">בקשה דחופה</span>
-    </div>
-    <div class="win-body">
-      <div class="dots">
-        <div class="dot done"></div><div class="dot done"></div>
-        <div class="dot done"></div><div class="dot active"></div><div class="dot"></div>
-      </div>
-      <span class="smirk">😏</span>
-      <h2 class="win-title">אז... מביא מתנה?</h2>
-      <p class="win-sub">
-        בבקשה בבקשה בבקשה 🥺<br/>
-        אם כן, עזור לי להיות מוכן נפשית...
-      </p>
-      <button class="btn btn-green" onclick="setGift(true)">כן, מביא! 🎁</button>
-      <button class="btn" style="background:linear-gradient(180deg,#d0d8e8,#b0b8c8);border-color:rgba(80,100,140,0.3);color:#446;text-shadow:none;" onclick="setGift(false)">לא, בא בלי 😇</button>
-    </div>
-  </div>
+<div id="modalBg" class="modal-bg hidden">
+  <div class="modal"><div class="modal-handle"></div><div id="modalContent"></div></div>
 </div>
-
-<!--
-     ШАГ 5: ФОРМА
--->
-<div class="step" id="s5">
-  <div class="window">
-    <div class="titlebar">
-      <div class="tf tf-red" onclick="go(1)"></div>
-      <div class="tf tf-yel"></div>
-      <div class="tf tf-grn"></div>
-      <span class="titlebar-title">טופס אישור הגעה</span>
-    </div>
-    <div class="win-body">
-      <div class="dots">
-        <div class="dot done"></div><div class="dot done"></div>
-        <div class="dot done"></div><div class="dot done"></div><div class="dot active"></div>
-      </div>
-      <h2 class="win-title" style="margin-bottom:1rem;">כמה פרטים קטנים 📋</h2>
-      <div class="form-row">
-        <label>שם פרטי</label>
-        <input type="text" id="fName" placeholder="למשל: דניאל"/>
-      </div>
-      <div class="form-row">
-        <label>שם משפחה</label>
-        <input type="text" id="lName" placeholder="למשל: כהן"/>
-      </div>
-      <div class="form-row">
-        <label>האם אתה מגיע?</label>
-        <select id="coming">
-          <option value="">בחר...</option>
-          <option value="yes">כן, מגיע! 🙌</option>
-          <option value="maybe">אולי, אעדכן</option>
-          <option value="no">לא יכול 😢</option>
-        </select>
-      </div>
-      <div class="form-row">
-        <label>אלרגיות למזון</label>
-        <select id="allergy" onchange="toggleAllergyNote()">
-          <option value="none">אין לי אלרגיות</option>
-          <option value="gluten">גלוטן</option>
-          <option value="lactose">לקטוז</option>
-          <option value="nuts">אגוזים</option>
-          <option value="veg">צמחוני / טבעוני</option>
-          <option value="other">אחר</option>
-        </select>
-      </div>
-      <div class="form-row" id="allergyNoteRow" style="display:none;">
-        <label>פרט את הרגישות</label>
-        <textarea id="allergyNote" placeholder="למשל: לא אוכל בשר..."></textarea>
-      </div>
-      <div class="form-row">
-        <label>הערות נוספות (אופציונלי)</label>
-        <textarea id="notes" placeholder="כל מה שתרצה שאדע..."></textarea>
-      </div>
-      <button class="btn btn-green" onclick="submitForm()">שלח אישור 🎉</button>
-    </div>
-  </div>
-</div>
-
-<!--
-     ШАГ 6: ФИНАЛ
--->
-<div class="step" id="s6">
-  <div class="window">
-    <div class="titlebar">
-      <div class="tf tf-red" onclick="go(1)"></div>
-      <div class="tf tf-yel"></div>
-      <div class="tf tf-grn"></div>
-      <span class="titlebar-title">הכל מוכן!</span>
-    </div>
-    <div class="win-body" style="text-align:center;">
-      <span class="win-icon" id="finalIcon">🎉</span>
-      <h2 class="win-title" id="finalTitle">תודה רבה!</h2>
-      <p class="win-sub" id="finalSub">כיף שאתה בא!</p>
-      <div class="hr"></div>
-      <p style="font-size:0.8rem;color:var(--sub);margin-bottom:0.8rem;">שלח לי אישור בוואטסאפ:</p>
-      <a id="waLink" href="#" class="btn btn-wa" onclick="openWA(event)">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        שלח בוואטסאפ
-      </a>
-    </div>
-  </div>
-</div>
-
-</div><!-- /app -->
+<div id="toast" class="toast"></div>
 
 <script>
-/*
-   СОСТОЯНИЕ
-*/
-const st = {
-  fn:'', ln:'', coming:'', allergy:'none',
-  allergyNote:'', notes:'', gift: null
+'use strict';
+/* ── I18N ── */
+const S={
+he:{
+  heroTitle:'הסטודיו של גיא',heroSub:'ציפורניים מקצועיות • דימונה',bookBtn:'🗓️ קביעת תור',
+  badge1:"ג'ל מקצועי",badge2:'אקריל',badge3:'עיצוב אמנותי',badge4:'זמינות מהירה',
+  trustTitle:'סטריליות בראש סדר העדיפויות',trustBody:'כלים מעוקרים לכל טיפול · חומרים מקצועיים בלבד',
+  secSvc:'שירותים',secGal:'גלריית עבודות',
+  stTitle:'⚙️ הגדרות',stApp:'מראה',stLang:'שפה',stAcct:'חשבון',stAbout:'סטודיו',
+  loggedIn:'מחובר כמנהל',loggedOut:'לא מחובר',goAdmin:'פאנל ניהול ↗',
+  btnLogout:'יציאה',btnLogin:'כניסה למנהל',btnForgot:'שכחתי סיסמה',editProfile:'עריכה',
+  btnCall:'התקשר',location:'מרכז מסחרי דימונה',
+  actBkTxt:'יש לך תור פעיל!',actBkBtn:'הפרטים שלי',
+  admLoginTitle:'כניסה למנהל',admPwdLbl:'סיסמה',admLoginBtn:'כניסה',admBackBtn:'חזרה',
+  admDashTitle:'ניהול הסטודיו',admLogout:'יציאה',
+  tabBk:'📋 תורים',tabAcc:'👤 לקוחות',tabBl:'🚫 חסומים',tabGal:'🖼️ גלריה',tabSet:'⚙️ הגדרות',
+  fAll:'הכל',fPend:'ממתינות',fConf:'מאושרות',
+  admUploadTitle:'העלאת תמונה',admUploadLbl:'בחרי תמונה',admCaptionLbl:'כיתוב',admUploadBtn:'הוסף',
+  admExistingTitle:'תמונות קיימות',admSetTitle:'הגדרות כלליות',
+  admPhoneLbl:'WhatsApp (קוד מדינה + מספר)',admPwdChangeLbl:'שינוי סיסמת מנהל',admSaveBtn:'שמור',
+  admDataTitle:'ניהול נתונים',admExportBtn:'📤 ייצוא JSON',admClearBtn:'🗑️ מחק ישנות',
+  waApiTitle:'WhatsApp Cloud API',waTokenLbl:'Access Token',waPhoneIdLbl:'Phone Number ID',
+  waSaveBtn:'שמור API',waTestBtn:'🔗 בדיקת חיבור',
+  waApiNote:'',
+  waSteps:[
+    {n:1,txt:'היכנסי ל-business.facebook.com',sub:'חשבון פייסבוק עסקי רגיל'},
+    {n:2,txt:'צרי אפליקציה → בחרי "WhatsApp"',sub:'בתפריט "My Apps" → "Create App"'},
+    {n:3,txt:'העתיקי את Access Token',sub:'מופיע בדף API Setup תחת "Temporary token"'},
+    {n:4,txt:'העתיקי את Phone Number ID',sub:'מספר בן ~15 ספרות בדף API Setup'},
+    {n:5,txt:'הדביקי כאן ולחצי שמור',sub:'לאחר מכן לחצי "בדיקת חיבור" לאימות'},
+  ],
+  blAddTitle:'הוספה לרשימה השחורה',blPhoneLbl:'מספר טלפון',blNameLbl:'שם (אופציונלי)',blReasonLbl:'סיבה',blAddBtn:'🚫 הוסף',blListTitle:'רשימה שחורה',blEmpty:'אין לקוחות חסומים',blRemove:'הסר',
+  navHome:'בית',navSettings:'הגדרות',
+  stPending:'ממתינה',stConfirmed:'בטיפול',stCancelled:'בוטלה',stCompleted:'הושלמה',
+  monNew:'🆕 חדשות',monProgress:'⚙️ בטיפול',monDone:'✅ הושלמו',
+  monStartBtn:'התחל →',monDoneBtn:'✓ הסתיים',monViewList:'📋',monViewMon:'📊',
+  actConfirmWA:'✅ אשר',actCancel:'ביטול',actResend:'📲 שלח שוב',actRemind:'⏰ תזכורת',actBan:'🚫 חסום',actComplete:'✓ הושלם',
+  toastBooked:'✅ נשלח!',toastFill:'⚠️ נא למלא את כל השדות',toastSaved:'✅ נשמר',
+  toastImgAdded:'✅ תמונה נוספה',toastWrongPwd:'❌ סיסמה שגויה',toastConfirmed:'✅ אישור נשלח',
+  toastLoggedOut:'👋 יצאת',toastWaSent:'📲 נשלח בוואטסאפ',toastWaFail:'❌ שגיאת API',
+  toastWaOk:'✅ API מחובר',toastBlocked:'🚫 מספר זה חסום',toastBanned:'🚫 נוסף לרשימה השחורה',toastUnbanned:'✅ הוסר מהרשימה',
+  emptyBk:'אין הזמנות',emptyGal:'אין תמונות',emptyAcct:'אין לקוחות',
+  deleteQ:'למחוק?',clearQ:'למחוק הזמנות מעל 30 יום?',
+  forgotTitle:'שחזור סיסמה',forgotBody:'לשחזור הגישה פנה דרך הוואטסאפ:',back:'חזרה',
+  regTitle:'ברוכה הבאה 💅',regSub:'קצת פרטים ונתחיל',regNameLbl:'שם מלא',regPhoneLbl:'מספר טלפון',regSubmitBtn:'המשך ←',
+  wiz1Title:'בחרי שירות',wiz1Sub:'על מה תרצי לקבוע תור?',wiz2Title:'בחרי תאריך',wiz2Sub:'מתי נוח לך?',
+  wiz3Title:'בחרי שעה',wiz3Sub:'',wiz4Title:'פרטים אישיים',wiz4Sub:'',wiz5Title:'אישור הזמנה',wiz5Sub:'הכל נראה טוב?',
+  fName:'שם מלא',fPhone:'מספר טלפון',fNotes:'הערות (אופציונלי)',phName:'השם שלך',phNotes:'עיצוב מיוחד, צבע...',
+  nextBtn:'הבא →',submitBtn:'📲 הזמנה בוואטסאפ',
+  morning:'בוקר',afternoon:'צהריים',evening:'ערב',
+  cfSvc:'שירות',cfDate:'תאריך',cfTime:'שעה',cfName:'שם',cfPhone:'טלפון',cfNotes:'הערות',
+  months:['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'],
+  days:['א','ב','ג','ד','ה','ו','ש'],
+  confirmMsg:(b,svc)=>`✅ שלום ${b.name}!\nהטיפול שלך אושר 💅\n💅 ${svc}\n📅 ${b.date} ${b.time}\nנתראה! — סטודיו גיא 🌸`,
+  reminderMsg:(b,svc)=>`⏰ תזכורת: מחר יש לך תור ב-${b.time}\n💅 ${svc}\n— סטודיו גיא 🌸`,
+  newBkMsg:(b,svc)=>`🆕 הזמנה חדשה!\n👤 ${b.name}\n📞 ${b.phone}\n💅 ${svc}\n📅 ${b.date} ${b.time}${b.notes?'\n📝 '+b.notes:''}`,
+},
+ru:{
+  heroTitle:'Студия Гая',heroSub:'Профессиональный маникюр • Димона',bookBtn:'🗓️ Записаться',
+  badge1:'Гель',badge2:'Акрил',badge3:'Арт-дизайн',badge4:'Быстрая запись',
+  trustTitle:'Стерильность — наш приоритет',trustBody:'Стерилизованные инструменты · Профессиональные материалы',
+  secSvc:'Услуги',secGal:'Галерея работ',
+  stTitle:'⚙️ Настройки',stApp:'Внешний вид',stLang:'Язык',stAcct:'Аккаунт',stAbout:'Студия',
+  loggedIn:'Вы вошли как администратор',loggedOut:'Не авторизованы',goAdmin:'Панель управления ↗',
+  btnLogout:'Выйти',btnLogin:'Войти как администратор',btnForgot:'Забыл пароль',editProfile:'Изменить',
+  btnCall:'Позвонить',location:'Торговый центр Димона',
+  actBkTxt:'У вас активная запись!',actBkBtn:'Мои данные',
+  admLoginTitle:'Вход для администратора',admPwdLbl:'Пароль',admLoginBtn:'Войти',admBackBtn:'Назад',
+  admDashTitle:'Управление студией',admLogout:'Выйти',
+  tabBk:'📋 Записи',tabAcc:'👤 Клиенты',tabBl:'🚫 Блок-лист',tabGal:'🖼️ Галерея',tabSet:'⚙️ Настройки',
+  fAll:'Все',fPend:'Ожидают',fConf:'Подтверждённые',
+  admUploadTitle:'Загрузить фото',admUploadLbl:'Выберите фото',admCaptionLbl:'Подпись',admUploadBtn:'Добавить',
+  admExistingTitle:'Фото',admSetTitle:'Основные настройки',
+  admPhoneLbl:'WhatsApp (код + номер)',admPwdChangeLbl:'Сменить пароль',admSaveBtn:'Сохранить',
+  admDataTitle:'Данные',admExportBtn:'📤 Экспорт JSON',admClearBtn:'🗑️ Очистить старые',
+  waApiTitle:'WhatsApp Cloud API',waTokenLbl:'Access Token',waPhoneIdLbl:'Phone Number ID',
+  waSaveBtn:'Сохранить API',waTestBtn:'🔗 Проверить соединение',
+  waApiNote:'',
+  waSteps:[
+    {n:1,txt:'Зайди на business.facebook.com',sub:'Обычный аккаунт Facebook подойдёт'},
+    {n:2,txt:'Создай приложение → выбери "WhatsApp"',sub:'В меню "My Apps" → "Create App"'},
+    {n:3,txt:'Скопируй Access Token',sub:'На странице API Setup — "Temporary token"'},
+    {n:4,txt:'Скопируй Phone Number ID',sub:'15-значный номер на той же странице'},
+    {n:5,txt:'Вставь сюда и нажми Сохранить',sub:'Затем нажми "Проверить соединение"'},
+  ],
+  blAddTitle:'Добавить в чёрный список',blPhoneLbl:'Телефон',blNameLbl:'Имя (необязательно)',blReasonLbl:'Причина',blAddBtn:'🚫 Заблокировать',blListTitle:'Чёрный список',blEmpty:'Список пуст',blRemove:'Удалить',
+  navHome:'Главная',navSettings:'Настройки',
+  stPending:'Ожидает',stConfirmed:'В работе',stCancelled:'Отменена',stCompleted:'Выполнена',
+  monNew:'🆕 Новые',monProgress:'⚙️ В работе',monDone:'✅ Готово',
+  monStartBtn:'Начать →',monDoneBtn:'✓ Готово',monViewList:'📋',monViewMon:'📊',
+  actConfirmWA:'✅ Подтвердить',actCancel:'Отменить',actResend:'📲 Повторить',actRemind:'⏰ Напомнить',actBan:'🚫 Блок',actComplete:'✓ Выполнено',
+  toastBooked:'✅ Отправлено!',toastFill:'⚠️ Заполните все поля',toastSaved:'✅ Сохранено',
+  toastImgAdded:'✅ Фото добавлено',toastWrongPwd:'❌ Неверный пароль',toastConfirmed:'✅ Подтверждение отправлено',
+  toastLoggedOut:'👋 Вы вышли',toastWaSent:'📲 Отправлено через WA API',toastWaFail:'❌ Ошибка API',
+  toastWaOk:'✅ API подключён',toastBlocked:'🚫 Этот номер заблокирован',toastBanned:'🚫 Добавлен в чёрный список',toastUnbanned:'✅ Удалён из чёрного списка',
+  emptyBk:'Нет записей',emptyGal:'Нет фото',emptyAcct:'Нет клиентов',
+  deleteQ:'Удалить?',clearQ:'Удалить записи старше 30 дней?',
+  forgotTitle:'Восстановление пароля',forgotBody:'Для восстановления напишите в WhatsApp:',back:'Назад',
+  regTitle:'Добро пожаловать 💅',regSub:'Пару секунд — и начнём',regNameLbl:'Полное имя',regPhoneLbl:'Телефон',regSubmitBtn:'Продолжить →',
+  wiz1Title:'Выберите услугу',wiz1Sub:'Что вас интересует?',wiz2Title:'Выберите дату',wiz2Sub:'Когда удобно?',
+  wiz3Title:'Выберите время',wiz3Sub:'',wiz4Title:'Ваши данные',wiz4Sub:'',wiz5Title:'Подтверждение',wiz5Sub:'Всё верно?',
+  fName:'Полное имя',fPhone:'Телефон',fNotes:'Примечания',phName:'Ваше имя',phNotes:'Цвет, дизайн...',
+  nextBtn:'Далее →',submitBtn:'📲 Записаться в WhatsApp',
+  morning:'Утро',afternoon:'День',evening:'Вечер',
+  cfSvc:'Услуга',cfDate:'Дата',cfTime:'Время',cfName:'Имя',cfPhone:'Телефон',cfNotes:'Заметки',
+  months:['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'],
+  days:['Пн','Вт','Ср','Чт','Пт','Сб','Вс'],
+  confirmMsg:(b,svc)=>`✅ Здравствуйте, ${b.name}!\nЗапись подтверждена 💅\n💅 ${svc}\n📅 ${b.date} ${b.time}\nДо встречи! — Студия Гая 🌸`,
+  reminderMsg:(b,svc)=>`⏰ Напоминание: завтра запись в ${b.time}\n💅 ${svc}\n— Студия Гая 🌸`,
+  newBkMsg:(b,svc)=>`🆕 Новая запись!\n👤 ${b.name}\n📞 ${b.phone}\n💅 ${svc}\n📅 ${b.date} ${b.time}${b.notes?'\n📝 '+b.notes:''}`,
+}};
+function t(k){const l=state?.settings?.lang||'he';const v=(S[l]&&S[l][k]!==undefined)?S[l][k]:(S.he[k]!==undefined?S.he[k]:k);return v;}
+
+/* ── STATE ── */
+const KEY='gs_v095';
+const DEFAULTS={
+  user:null,blacklist:[],
+  services:[
+    {id:1,name:"מניקור ג'ל",nameRu:'Маникюр гель',desc:"מניקור יסודי ומריחת ג'ל",descRu:'Маникюр с гель-лаком',price:'₪120',icon:'💅'},
+    {id:2,name:'בניית ציפורניים',nameRu:'Наращивание',desc:"בנייה באקריל/ג'ל",descRu:'Акрил/гель наращивание',price:'₪250',icon:'💎'},
+    {id:3,name:'מילוי',nameRu:'Коррекция',desc:"מילוי ג'ל/אקריל",descRu:'Коррекция гель/акрил',price:'₪150',icon:'🔄'},
+    {id:4,name:"הסרת ג'ל",nameRu:'Снятие гель-лака',desc:'הסרה בטוחה',descRu:'Безопасное снятие',price:'₪40',icon:'✨'},
+  ],
+  bookings:[],
+  gallery:[
+    {src:'IMG_2300.png',caption:'קפסולת שיזוף Tecnosole'},
+    {src:'IMG_2301.png',caption:'הרחבת ריסים'},
+    {src:'IMG_2302.png',caption:"פרנץ' צבעוני — קשת",landscape:true},
+    {src:'IMG_2303.png',caption:'פדיקור שחור קלאסי'},
+    {src:'IMG_2305.png',caption:"פרנץ' שחור עם פרפרים תלת-מימד"},
+  ],
+  settings:{phone:'972506598734',adminPwd:'guy2024',lang:'he',waToken:'',waPhoneId:''},
 };
+let state=loadState(),adminAuthed=false,bkFilter='all',bkView='list';
+function loadState(){
+  try{
+    const r=localStorage.getItem(KEY);
+    if(!r)return JSON.parse(JSON.stringify(DEFAULTS));
+    const s=JSON.parse(r);
+    return{...DEFAULTS,...s,blacklist:s.blacklist||[],settings:{...DEFAULTS.settings,...(s.settings||{})},user:s.user||null};
+  }catch{return JSON.parse(JSON.stringify(DEFAULTS));}
+}
+function save(){localStorage.setItem(KEY,JSON.stringify(state));}
 
-/* 
-   НАВИГАЦИЯ
- */
-function go(n) {
-  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-  document.getElementById('s'+n).classList.add('active');
-  // Сброс убегающей кнопки при повторном заходе
-  if (n === 3) resetNo();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+/* ── WHATSAPP CLOUD API ── */
+async function waApiSend(to,message){
+  const token=state.settings.waToken,pid=state.settings.waPhoneId;
+  if(!token||!pid)return false;
+  const phone=String(to).replace(/\D/g,'');
+  try{
+    const r=await fetch(`https://graph.facebook.com/v19.0/${pid}/messages`,{
+      method:'POST',
+      headers:{'Authorization':`Bearer ${token}`,'Content-Type':'application/json'},
+      body:JSON.stringify({messaging_product:'whatsapp',to:phone,type:'text',text:{body:message}})
+    });
+    const data=await r.json();
+    if(data.messages&&data.messages[0]){showToast(t('toastWaSent'));return true;}
+    showToast(t('toastWaFail')+(data.error?' — '+data.error.message:''));return false;
+  }catch(e){showToast(t('toastWaFail'));return false;}
+}
+function hasWaApi(){return !!(state.settings.waToken&&state.settings.waPhoneId);}
+
+/* ── BLACKLIST ── */
+function isBlacklisted(phone){
+  const p=String(phone).replace(/\D/g,'');
+  return state.blacklist.some(b=>String(b.phone).replace(/\D/g,'')===p);
+}
+function addToBlacklist(phone,name,reason){
+  const p=String(phone).replace(/\D/g,'');
+  if(state.blacklist.find(b=>String(b.phone).replace(/\D/g,'')===p))return;
+  state.blacklist.push({phone:p,name:name||'',reason:reason||'',addedAt:new Date().toISOString()});
+  save();showToast(t('toastBanned'));
+}
+function removeFromBlacklist(idx){state.blacklist.splice(idx,1);save();renderAdmBlacklist();showToast(t('toastUnbanned'));}
+
+/* ── LANG ── */
+function setLang(lang){
+  state.settings.lang=lang;save();
+  document.documentElement.lang=lang==='he'?'he':'ru';
+  document.documentElement.dir=lang==='he'?'rtl':'ltr';
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.dataset.lang===lang));
+  document.querySelectorAll('.wiz-panel').forEach(p=>p.setAttribute('dir',lang==='he'?'rtl':'ltr'));
 }
 
-/* 
-   УБЕГАЮЩАЯ КНОПКА
- */
-const noTexts = ['לא 😈','ממש לא 😏','נסה שוב 😂','בשום אופן!','לעולם לא 🤣'];
-let escCount = 0;
-
-function resetNo() {
-  escCount = 0;
-  const btn = document.getElementById('noBtn');
-  btn.classList.remove('gone');
-  btn.textContent = noTexts[0];
-  btn.style.left = '0px';
-  btn.style.top  = '50%';
-  btn.style.transform = 'translateY(-50%)';
-  document.getElementById('noMsg').textContent = '';
+/* ── ROUTER ── */
+function goTo(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.screen===id));
+  if(id==='sHome')renderHome();
+  if(id==='sSettings')renderSettings();
+  if(id==='sAdmin')renderAdmin();
+  window.scrollTo(0,0);
 }
 
-function runAway(e) {
-  if (e) e.preventDefault();
-  const btn  = document.getElementById('noBtn');
-  const wrap = document.getElementById('rArea');
-  const bw   = btn.offsetWidth  || 130;
-  const bh   = btn.offsetHeight || 42;
-  const maxX = wrap.offsetWidth  - bw;
-  const maxY = wrap.offsetHeight - bh;
-  const nx   = Math.random() * maxX;
-  const ny   = Math.random() * maxY;
-  btn.style.left      = nx + 'px';
-  btn.style.top       = ny + 'px';
-  btn.style.transform = 'none';
-  escCount++;
-  if (escCount < noTexts.length) {
-    btn.textContent = noTexts[escCount];
-  } else {
-    btn.classList.add('gone');
-    document.getElementById('noMsg').textContent = 'הכפתור ברח... כי בעצם אתה כן מכבד 😂';
+/* ── HOME ── */
+function renderHome(){
+  const ru=state.settings.lang==='ru';
+  $t('hTitle',t('heroTitle'));$t('hSub',t('heroSub'));$t('hBookBtn',t('bookBtn'));
+  $t('hTrustTitle',t('trustTitle'));$t('hTrustBody',t('trustBody'));
+  $t('hSecSvc',t('secSvc'));$t('hSecGal',t('secGal'));
+  $t('navHome',t('navHome'));$t('navSettings',t('navSettings'));
+  $('hBadges').innerHTML=['badge1','badge2','badge3','badge4'].map(k=>`<div class="badge">${t(k)}</div>`).join('');
+  $('homeServices').innerHTML=state.services.map(s=>{
+    const name=ru&&s.nameRu?s.nameRu:s.name,desc=ru&&s.descRu?s.descRu:s.desc;
+    return`<div class="service-card" data-action="tryBookSvc" data-id="${s.id}">
+      <div class="svc-icon">${s.icon}</div><div style="flex:1"><div class="svc-name">${name}</div><div class="svc-desc">${desc}</div></div>
+      <div class="svc-price">${s.price}</div></div>`;
+  }).join('');
+  renderGallery();updateBanner();
+}
+function renderGallery(){
+  const g=$('homeGallery');if(!g)return;
+  g.innerHTML=state.gallery.map(img=>{
+    let cls='gallery-item';if(img.wide)cls+=' wide';else if(img.landscape)cls+=' landscape';
+    return`<div class="${cls}"><img src="${img.src}" alt="${img.caption||''}" loading="lazy"/></div>`;
+  }).join('');
+}
+function getMyBk(){return state.user?state.bookings.filter(b=>b.phone===state.user.phone&&b.status!=='cancelled'):[];}
+function updateBanner(){
+  const n=getMyBk().length,banner=$('actBkBanner'),dot=$('navDot');
+  if(n>0){banner.classList.add('on');$t('actBkTxt',t('actBkTxt'));$t('actBkBtn',t('actBkBtn'));}
+  else banner.classList.remove('on');
+  if(dot)dot.classList.toggle('on',n>0);
+}
+
+/* ── REGISTRATION ── */
+let regForId=null;
+function isReg(){return !!(state.user&&state.user.phone&&state.user.name);}
+function tryBook(preId){
+  if(!isReg()){regForId=typeof preId==='number'?preId:null;showRegSheet();return;}
+  if(isBlacklisted(state.user.phone)){showToast(t('toastBlocked'));return;}
+  openWizard(preId||null);
+}
+function showRegSheet(){
+  $t('regTitle',t('regTitle'));$t('regSub',t('regSub'));
+  $t('regNameLbl',t('regNameLbl'));$t('regPhoneLbl',t('regPhoneLbl'));$t('regSubmitBtn',t('regSubmitBtn'));
+  if(state.user){$('regName').value=state.user.name||'';$('regPhone').value=state.user.phone||'';}
+  $('regSheet').classList.add('open');document.body.style.overflow='hidden';
+}
+function closeRegSheet(){$('regSheet').classList.remove('open');document.body.style.overflow='';}
+function submitReg(){
+  const name=$('regName').value.trim(),phone=$('regPhone').value.trim();
+  if(!name||!phone){showToast(t('toastFill'));return;}
+  if(isBlacklisted(phone)){showToast(t('toastBlocked'));return;}
+  state.user={name,phone,registeredAt:new Date().toISOString()};save();
+  closeRegSheet();openWizard(regForId);
+}
+
+/* ── WIZARD ── */
+let wizStep=0,calYear,calMonth;
+const wizData={serviceId:null,date:null,time:null,name:'',phone:'',notes:''};
+const TIME_GROUPS=[
+  {key:'morning',slots:['09:00','09:30','10:00','10:30','11:00','11:30']},
+  {key:'afternoon',slots:['12:00','13:00','14:00','15:00','15:30']},
+  {key:'evening',slots:['16:00','16:30','17:00','17:30','18:00','18:30','19:00']},
+];
+function openWizard(preId){
+  const lang=state.settings.lang||'he';
+  document.querySelectorAll('.wiz-panel').forEach(p=>p.setAttribute('dir',lang==='he'?'rtl':'ltr'));
+  wizData.name=state.user?.name||'';wizData.phone=state.user?.phone||'';
+  if(preId){wizData.serviceId=preId;wizStep=1;}else{wizData.serviceId=null;wizStep=0;}
+  renderWizStep();$('wizardSheet').classList.add('open');document.body.style.overflow='hidden';
+}
+function closeWizard(){$('wizardSheet').classList.remove('open');document.body.style.overflow='';}
+function renderWizStep(){
+  $('wizTrack').style.transform=`translateX(-${wizStep*20}%)`;
+  document.querySelectorAll('.wiz-dot').forEach((d,i)=>d.classList.toggle('active',i===wizStep));
+  $('wizBackBtn').style.visibility=wizStep>0?'visible':'hidden';
+  const nb=$('wizNextBtn');
+  if(wizStep===4){nb.textContent=t('submitBtn');nb.style.background='#25D366';}
+  else{nb.textContent=t('nextBtn');nb.style.background='';}
+  [renderWiz1,renderWiz2,renderWiz3,renderWiz4,renderWiz5][wizStep]?.();
+}
+function wizNext(){if(!wizValidate())return;if(wizStep===4){submitWizard();return;}wizStep++;renderWizStep();}
+function wizBack(){if(wizStep===0)return;wizStep--;renderWizStep();}
+function wizValidate(){
+  switch(wizStep){
+    case 0:if(!wizData.serviceId){showToast(t('toastFill'));return false;}break;
+    case 1:if(!wizData.date){showToast(t('toastFill'));return false;}break;
+    case 2:if(!wizData.time){showToast(t('toastFill'));return false;}break;
+    case 3:{const n=($('wizName')||{value:''}).value.trim(),p=($('wizPhone')||{value:''}).value.trim();if(!n||!p){showToast(t('toastFill'));return false;}wizData.name=n;wizData.phone=p;wizData.notes=($('wizNotes')||{value:''}).value.trim();}break;
+  }
+  return true;
+}
+function renderWiz1(){
+  const ru=state.settings.lang==='ru';
+  $('wizS1').innerHTML=`<div class="wiz-h">${t('wiz1Title')}</div><div class="wiz-sub">${t('wiz1Sub')}</div>`+
+    state.services.map(s=>{const name=ru&&s.nameRu?s.nameRu:s.name,desc=ru&&s.descRu?s.descRu:s.desc;
+    return`<div class="wiz-svc${wizData.serviceId===s.id?' sel':''}" data-action="wizSelSvc" data-id="${s.id}">
+      <div class="wi">${s.icon}</div><div style="flex:1"><div class="wn">${name}</div><div class="wd">${desc}</div></div>
+      <div class="wp">${s.price}</div></div>`;}).join('');
+}
+function renderWiz2(){
+  const now=new Date();
+  if(calYear===undefined){calYear=now.getFullYear();calMonth=now.getMonth();}
+  const ru=state.settings.lang==='ru',weekStart=ru?1:0;
+  const dayNames=t('days'),monthName=t('months')[calMonth];
+  const firstDow=new Date(calYear,calMonth,1).getDay();
+  const daysInMonth=new Date(calYear,calMonth+1,0).getDate();
+  const today=new Date();today.setHours(0,0,0,0);
+  const bookedDates={};state.bookings.filter(b=>b.status!=='cancelled').forEach(b=>{bookedDates[b.date]=(bookedDates[b.date]||0)+1;});
+  let offset=(firstDow-weekStart+7)%7;
+  let cells=Array(offset).fill('<div></div>');
+  for(let d=1;d<=daysInMonth;d++){
+    const date=new Date(calYear,calMonth,d);
+    const ds=`${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const past=date<today,isTod=date.getTime()===today.getTime(),isSel=wizData.date===ds,hasBk=!!bookedDates[ds];
+    cells.push(`<button class="cal-day${isTod?' today':''}${isSel?' sel':''}" ${past?'disabled':''} data-action="wizSelDate" data-date="${ds}">${d}${hasBk&&!past?'<span class="bk-dot"></span>':''}</button>`);
+  }
+  $('wizS2').innerHTML=`<div class="wiz-h">${t('wiz2Title')}</div><div class="wiz-sub">${t('wiz2Sub')}</div>
+    <div class="cal-nav-row"><button class="cal-btn" data-action="calPrev">‹</button>
+    <span class="cal-month-lbl">${monthName} ${calYear}</span>
+    <button class="cal-btn" data-action="calNext">›</button></div>
+    <div class="cal-grid">${dayNames.map(d=>`<div class="cal-dname">${d}</div>`).join('')}${cells.join('')}</div>`;
+}
+function renderWiz3(){
+  const taken=new Set(state.bookings.filter(b=>b.date===wizData.date&&b.status!=='cancelled').map(b=>b.time));
+  let html=`<div class="wiz-h">${t('wiz3Title')}</div><div style="font-size:14px;color:var(--muted);margin-bottom:18px;font-weight:600">${wizData.date}</div>`;
+  TIME_GROUPS.forEach(g=>{
+    html+=`<div class="tg-label">${t(g.key)}</div><div class="time-grid">`;
+    g.slots.forEach(sl=>{const busy=taken.has(sl),sel=wizData.time===sl;html+=`<button class="t-slot${sel?' sel':''}" ${busy?'disabled':''} data-action="wizSelTime" data-time="${sl}">${sl}</button>`;});
+    html+='</div>';
+  });
+  $('wizS3').innerHTML=html;
+}
+function renderWiz4(){
+  $('wizS4').innerHTML=`<div class="wiz-h">${t('wiz4Title')}</div>
+    <div class="form-group"><label>${t('fName')}</label><input type="text" id="wizName" value="${wizData.name}" placeholder="${t('phName')}" autocomplete="name"/></div>
+    <div class="form-group"><label>${t('fPhone')}</label><input type="tel" id="wizPhone" value="${wizData.phone}" placeholder="05X-XXXXXXX" autocomplete="tel"/></div>
+    <div class="form-group"><label>${t('fNotes')}</label><textarea id="wizNotes" rows="3" placeholder="${t('phNotes')}">${wizData.notes}</textarea></div>`;
+}
+function renderWiz5(){
+  const ru=state.settings.lang==='ru',svc=state.services.find(s=>s.id===wizData.serviceId);
+  const name=ru&&svc?.nameRu?svc.nameRu:svc?.name;
+  const rows=[[t('cfSvc'),`${svc?.icon} ${name} — ${svc?.price}`],[t('cfDate'),wizData.date],[t('cfTime'),wizData.time],[t('cfName'),wizData.name],[t('cfPhone'),wizData.phone],...(wizData.notes?[[t('cfNotes'),wizData.notes]]:[])];
+  $('wizS5').innerHTML=`<div class="wiz-h">${t('wiz5Title')}</div><div class="wiz-sub">${t('wiz5Sub')}</div>
+    <div class="confirm-card">${rows.map(([l,v])=>`<div class="c-row"><span class="c-lbl">${l}</span><span class="c-val">${v}</span></div>`).join('')}</div>`;
+}
+async function submitWizard(){
+  const svc=state.services.find(s=>s.id===wizData.serviceId);
+  const bk={id:Date.now(),name:wizData.name,phone:wizData.phone,serviceId:wizData.serviceId,date:wizData.date,time:wizData.time,notes:wizData.notes,status:'pending',createdAt:new Date().toISOString()};
+  state.bookings.push(bk);if(state.user)state.user.lastBooked=wizData.date;save();
+  const svcName=svc?(state.settings.lang==='ru'&&svc.nameRu?svc.nameRu:svc.name):'';
+  if(hasWaApi()){
+    // notify owner via API
+    const msg=t('newBkMsg')(bk,svcName);
+    const sent=await waApiSend(state.settings.phone,msg);
+    if(!sent){// fallback to wa.me
+      const m=encodeURIComponent(msg);window.open(`https://wa.me/${state.settings.phone}?text=${m}`,'_blank');
+    }
+  }else{
+    const m=encodeURIComponent(`🆕 ${wizData.name}\n📞 ${wizData.phone}\n💅 ${svc?.name||''}\n📅 ${wizData.date} ${wizData.time}${wizData.notes?'\n📝 '+wizData.notes:''}`);
+    window.open(`https://wa.me/${state.settings.phone}?text=${m}`,'_blank');
+  }
+  showToast(t('toastBooked'));closeWizard();
+  Object.assign(wizData,{serviceId:null,date:null,time:null,notes:''});
+  updateBanner();
+}
+
+/* ── SETTINGS ── */
+function renderSettings(){
+  $t('stTitle',t('stTitle'));$t('stApp',t('stApp'));$t('stLang',t('stLang'));
+  $t('stAcct',t('stAcct'));$t('stAbout',t('stAbout'));$t('stCall',t('btnCall'));$t('stLoc',t('location'));
+  $t('navHome',t('navHome'));$t('navSettings',t('navSettings'));
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.dataset.lang===(state.settings.lang||'he')));
+  const ac=$('accountSection');
+  if(state.user){
+    ac.innerHTML=`<div class="s-row"><div><div class="s-label">👤 ${state.user.name}</div><div class="s-sub">📞 ${state.user.phone}</div></div>
+      <button class="btn btn-ghost btn-sm" data-action="editProfile">${t('editProfile')}</button></div>
+      ${adminAuthed?`<div class="s-row"><div class="s-label">${t('loggedIn')}</div></div>
+      <div class="s-row" style="border:none"><button class="btn btn-ghost btn-sm" data-action="goAdmin">${t('goAdmin')}</button>
+      <button class="btn btn-danger btn-sm" data-action="settingsLogout">${t('btnLogout')}</button></div>`
+      :`<div class="s-row" style="border:none;flex-direction:column;align-items:flex-start;gap:10px;padding-top:10px">
+      <button class="btn btn-outline btn-sm" data-action="settingsLogin">${t('btnLogin')}</button>
+      <button style="background:none;border:none;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;touch-action:manipulation" data-action="forgotPwd">${t('btnForgot')}</button></div>`}`;
+  }else{
+    ac.innerHTML=`<div class="s-row"><div class="s-label">${t('loggedOut')}</div></div>
+      <div class="s-row" style="border:none;flex-direction:column;align-items:flex-start;gap:10px;padding-top:10px">
+      <button class="btn btn-outline btn-sm" data-action="settingsLogin">${t('btnLogin')}</button>
+      <button style="background:none;border:none;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;touch-action:manipulation" data-action="forgotPwd">${t('btnForgot')}</button></div>`;
   }
 }
 
-/*
-   ПОДАРОК
-*/
-function setGift(v) {
-  st.gift = v;
-  go(5);
-}
-
-/*
-   АЛЛЕРГИЯ
-*/
-function toggleAllergyNote() {
-  const v = document.getElementById('allergy').value;
-  document.getElementById('allergyNoteRow').style.display = v === 'other' ? 'block' : 'none';
-}
-
-/*
-   ОТПРАВКА ФОРМЫ
-*/
-function submitForm() {
-  st.fn   = document.getElementById('fName').value.trim();
-  st.ln   = document.getElementById('lName').value.trim();
-  st.coming = document.getElementById('coming').value;
-  st.allergy = document.getElementById('allergy').value;
-  st.allergyNote = document.getElementById('allergyNote').value.trim();
-  st.notes = document.getElementById('notes').value.trim();
-
-  if (!st.fn || !st.ln) { alert('אנא מלא שם פרטי ושם משפחה 😊'); return; }
-  if (!st.coming)        { alert('אנא בחר האם אתה מגיע'); return; }
-
-  const icon  = document.getElementById('finalIcon');
-  const title = document.getElementById('finalTitle');
-  const sub   = document.getElementById('finalSub');
-
-  if (st.coming === 'yes') {
-    icon.textContent  = '🎉';
-    title.textContent = `יאלה ${st.fn}!`;
-    sub.textContent   = 'כיף שאתה בא, נראה אותך ב-21!';
-    confetti();
-  } else if (st.coming === 'maybe') {
-    icon.textContent  = '🤔';
-    title.textContent = `אוקיי ${st.fn}`;
-    sub.textContent   = 'עדכן אותי עד ה-19 ביוני!';
-  } else {
-    icon.textContent  = '😢';
-    title.textContent = `חבל ${st.fn}...`;
-    sub.textContent   = 'אם תשנה את דעתך, אני כאן!';
-  }
-
-  go(6);
-}
-
-/*
-   WHATSAPP (красивое сообщение)
-*/
-function openWA(e) {
-  e.preventDefault();
-  const phone = '972544570982';
-
-  const comingLabel = st.coming === 'yes' ? 'מגיע ✅'
-                    : st.coming === 'maybe' ? 'אולי מגיע 🤔'
-                    : 'לא יכול ❌';
-
-  const allergyNames = {
-    none:'אין','gluten':'גלוטן','lactose':'לקטוז',
-    nuts:'אגוזים','veg':'צמחוני/טבעוני','other':st.allergyNote || 'אחר'
-  };
-  const allergyLabel = allergyNames[st.allergy] || 'אין';
-  const giftLabel    = st.gift === true ? 'כן 🎁' : st.gift === false ? 'לא 😇' : 'לא ציין';
-  const notesLine    = st.notes ? `\n📝 הערות: ${st.notes}` : '';
-
-  const msg =
-` אישור הגעה ליום הולדת
-
- שם: ${st.fn} ${st.ln}
- תאריך: 21 ביוני בשעה 18:30
- מיקום: קצרין 5
-
- הגעה: ${comingLabel}
- אלרגיות: ${allergyLabel}
- מביא מתנה: ${giftLabel}${notesLine}
-
-נתראה! `;
-
-  window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
-}
-
-/*
-   КОНФЕТТИ
-*/
-function confetti() {
-  const cols = ['#4a90d9','#f5c842','#4ade80','#f87171','#a78bfa','#60a5fa'];
-  for (let i = 0; i < 55; i++) {
-    const el = document.createElement('div');
-    el.className = 'cp';
-    el.style.setProperty('--d',  (Math.random()*1.4+0.9)+'s');
-    el.style.setProperty('--del',(Math.random()*0.7)+'s');
-    el.style.setProperty('--tx', (Math.random()*200-100)+'px');
-    el.style.background = cols[Math.floor(Math.random()*cols.length)];
-    el.style.left = Math.random()*100+'vw';
-    el.style.top  = '-10px';
-    el.style.transform = `rotate(${Math.random()*360}deg)`;
-    document.body.appendChild(el);
-    setTimeout(() => el.remove(), 3000);
+/* ── ADMIN ── */
+function renderAdmin(){
+  const ids={admLoginTitle:'admLoginTitle',admPwdLbl:'admPwdLbl',admLoginBtn:'admLoginBtn',admBackBtn:'admBackBtn',admDashTitle:'admDashTitle',admLogoutBtn:'admLogout',admTabBk:'tabBk',admTabAcc:'tabAcc',admTabBl:'tabBl',admTabGal:'tabGal',admTabSet:'tabSet',fAll:'fAll',fPend:'fPend',fConf:'fConf',admUploadTitle:'admUploadTitle',admUploadLbl:'admUploadLbl',admCaptionLbl:'admCaptionLbl',admUploadBtn:'admUploadBtn',admExistingTitle:'admExistingTitle',admSetTitle:'admSetTitle',admPhoneLbl:'admPhoneLbl',admPwdChangeLbl:'admPwdChangeLbl',admSaveBtn:'admSaveBtn',admDataTitle:'admDataTitle',admExportBtn:'admExportBtn',admClearBtn:'admClearBtn',waApiTitle:'waApiTitle',waTokenLbl:'waTokenLbl',waPhoneIdLbl:'waPhoneIdLbl',waSaveBtn:'waSaveBtn',waTestBtn:'waTestBtn',blAddTitle:'blAddTitle',blPhoneLbl:'blPhoneLbl',blNameLbl:'blNameLbl',blReasonLbl:'blReasonLbl',blAddBtn:'blAddBtn',blListTitle:'blListTitle'};
+  Object.entries(ids).forEach(([el,k])=>$t(el,t(k)));
+  if(!adminAuthed){$('adminLogin').style.display='flex';$('adminDash').style.display='none';}
+  else{$('adminLogin').style.display='none';$('adminDash').style.display='block';
+    renderBkList();renderAdmAccounts();renderAdmBlacklist();renderAdmGal();
+    $('settingPhone').value=state.settings.phone||'';
+    $('waToken').value=state.settings.waToken||'';$('waPhoneId').value=state.settings.waPhoneId||'';
+    updateWaStatus();renderWaSteps();
   }
 }
+function renderWaSteps(){
+  const el=$('waApiNote');if(!el)return;
+  const lang=state.settings.lang||'he';
+  const steps=(S[lang]&&S[lang].waSteps)||S.he.waSteps;
+  el.innerHTML=`<div class="wa-steps-card">
+    <div class="wa-steps-title">📖 ${lang==='ru'?'Как подключить?':'איך מחברים?'}</div>
+    ${steps.map(s=>`<div class="wa-step">
+      <div class="wa-step-num">${s.n}</div>
+      <div class="wa-step-body"><div class="wa-step-txt">${s.txt}</div><div class="wa-step-sub">${s.sub}</div></div>
+    </div>`).join('')}
+  </div>`;
+}
+function updateWaStatus(){
+  const el=$('waStatusBadge');if(!el)return;
+  if(hasWaApi()){el.className='wa-status ok';el.textContent='🟢 Online';}
+  else{el.className='wa-status off';el.textContent='⚪ Offline';}
+}
+function doAdminLogin(){if($('adminPwd').value===state.settings.adminPwd){adminAuthed=true;$('adminPwd').value='';renderAdmin();}else showToast(t('toastWrongPwd'));}
+function admTab(tab){
+  ['Bookings','Accounts','Blacklist','Gallery','Settings'].forEach(n=>$('tab'+n).style.display=tab===n.toLowerCase()?'':'none');
+  document.querySelectorAll('.adm-tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));
+  if(tab==='bookings'){if(bkView==='monitor')renderMonitor();else renderBkList();}
+}
+function toggleBkView(){
+  bkView=bkView==='list'?'monitor':'list';
+  const btn=$('viewToggleBtn');
+  if(bkView==='monitor'){
+    $('bookingsList').style.display='none';$('monitorBoard').style.display='';
+    if(btn)btn.textContent=t('monViewList');renderMonitor();
+  }else{
+    $('monitorBoard').style.display='none';$('bookingsList').style.display='';
+    if(btn)btn.textContent=t('monViewMon');renderBkList();
+  }
+}
+function renderMonitor(){
+  const today=new Date().toISOString().slice(0,10);
+  const cols=[
+    {key:'pending',label:t('monNew'),bg:'#4a7fd0',items:[]},
+    {key:'confirmed',label:t('monProgress'),bg:'#d08030',items:[]},
+    {key:'completed',label:t('monDone'),bg:'#3ea068',items:[]},
+  ];
+  [...state.bookings].filter(b=>b.status!=='cancelled').sort((a,b)=>a.time?.localeCompare(b.time)).forEach(b=>{
+    const col=cols.find(c=>c.key===b.status);if(col)col.items.push(b);
+  });
+  const ru=state.settings.lang==='ru';
+  $('monitorBoard').innerHTML=cols.map(col=>{
+    const cards=col.items.map(b=>{
+      const svc=state.services.find(s=>s.id===b.serviceId);
+      const svcName=svc?(ru&&svc.nameRu?svc.nameRu:svc.name):'';
+      const isToday=b.date===today;
+      let advBtn='';
+      if(col.key==='pending')advBtn=`<button class="mon-adv" style="background:rgba(74,127,208,.15);color:#3568b8" data-action="advanceBk" data-bid="${b.id}">${t('monStartBtn')}</button>`;
+      if(col.key==='confirmed')advBtn=`<button class="mon-adv" style="background:rgba(62,160,104,.15);color:#2a7048" data-action="completeBk" data-bid="${b.id}">${t('monDoneBtn')}</button>`;
+      return`<div class="mon-card${isToday?' is-today':''}">
+        <div class="mon-time">${b.time||'—'}</div>
+        <div class="mon-name">${b.name}</div>
+        <div class="mon-svc">${svc?svc.icon+' ':''} ${svcName}</div>
+        ${isToday?'':'<div style="font-size:10px;color:var(--muted);margin-top:3px">📅 '+b.date+'</div>'}
+        ${advBtn}
+      </div>`;
+    }).join('');
+    return`<div class="mon-col">
+      <div class="mon-col-hd" style="background:${col.bg}">
+        <span class="mon-label">${col.label}</span>
+        <span class="mon-cnt">${col.items.length}</span>
+      </div>
+      <div class="mon-col-body">${cards||'<div style="padding:12px;text-align:center;color:var(--muted);font-size:12px">—</div>'}</div>
+    </div>`;
+  }).join('');
+}
+function advanceBk(id){const b=state.bookings.find(x=>x.id==id);if(b&&b.status==='pending'){b.status='confirmed';save();renderMonitor();}}
+function completeBk(id){const b=state.bookings.find(x=>x.id==id);if(b&&b.status==='confirmed'){b.status='completed';save();renderMonitor();}}
+function renderBkList(){
+  const el=$('bookingsList');let items=[...state.bookings].reverse();
+  if(bkFilter!=='all')items=items.filter(b=>b.status===bkFilter);
+  if(!items.length){el.innerHTML=`<div class="empty"><div class="ei">📋</div><p>${t('emptyBk')}</p></div>`;return;}
+  const sl={pending:t('stPending'),confirmed:t('stConfirmed'),cancelled:t('stCancelled'),completed:t('stCompleted')};
+  const sc={pending:'sp',confirmed:'sc',cancelled:'sx',completed:'sc'};
+  el.innerHTML=items.map(b=>{
+    const svc=state.services.find(s=>s.id===b.serviceId);
+    const blked=isBlacklisted(b.phone);
+    return`<div class="bk-item ${b.status}">
+      <div class="bk-meta"><div class="bk-name">${b.name}${blked?' 🚫':''}</div><div class="bk-lbl ${sc[b.status]||''}">${sl[b.status]||b.status}</div></div>
+      <div class="bk-detail">📞 ${b.phone}<br>💅 ${svc?svc.icon+' '+svc.name:'—'}<br>📅 ${b.date} ${b.time}${b.notes?'<br>📝 '+b.notes:''}</div>
+      <div class="bk-actions">
+        ${b.status==='pending'?`<button class="btn btn-wa btn-sm" data-action="confirmWA" data-bid="${b.id}">${t('actConfirmWA')}</button>
+          <button class="btn btn-ghost btn-sm" data-action="cancelBk" data-bid="${b.id}">${t('actCancel')}</button>`:''}
+        ${b.status==='confirmed'?`<button class="btn btn-primary btn-sm" data-action="completeBk" data-bid="${b.id}">${t('actComplete')}</button>
+          <button class="btn btn-ghost btn-sm" data-action="resendWA" data-bid="${b.id}">${t('actResend')}</button>
+          <button class="btn btn-warn btn-sm" data-action="sendReminder" data-bid="${b.id}">${t('actRemind')}</button>`:''}
+        ${!blked?`<button class="btn btn-danger btn-sm" data-action="banClient" data-phone="${b.phone}" data-name="${b.name}">${t('actBan')}</button>`:''}
+        <button class="btn btn-ghost btn-sm" data-action="deleteBk" data-bid="${b.id}">🗑️</button>
+      </div></div>`;
+  }).join('');
+}
+async function confirmWA(id){
+  const b=state.bookings.find(x=>x.id==id);if(!b)return;
+  const svc=state.services.find(s=>s.id===b.serviceId);
+  const lang=state.settings.lang||'he';
+  const svcName=svc?(lang==='ru'&&svc.nameRu?svc.nameRu:svc.name):'';
+  b.status='confirmed';save();renderBkList();
+  const msg=t('confirmMsg')(b,svcName);
+  if(hasWaApi()){await waApiSend(b.phone,msg);}
+  else{window.open(`https://wa.me/${b.phone.replace(/\D/g,'')}?text=${encodeURIComponent(msg)}`,'_blank');}
+  showToast(t('toastConfirmed'));
+}
+async function sendReminder(id){
+  const b=state.bookings.find(x=>x.id==id);if(!b)return;
+  const svc=state.services.find(s=>s.id===b.serviceId);
+  const lang=state.settings.lang||'he';
+  const svcName=svc?(lang==='ru'&&svc.nameRu?svc.nameRu:svc.name):'';
+  const msg=t('reminderMsg')(b,svcName);
+  if(hasWaApi()){await waApiSend(b.phone,msg);}
+  else{window.open(`https://wa.me/${b.phone.replace(/\D/g,'')}?text=${encodeURIComponent(msg)}`,'_blank');}
+}
+function cancelBk(id){const b=state.bookings.find(x=>x.id==id);if(b){b.status='cancelled';save();renderBkList();}}
+function deleteBk(id){if(!confirm(t('deleteQ')))return;state.bookings=state.bookings.filter(x=>x.id!=id);save();renderBkList();}
+function banClient(phone,name){addToBlacklist(phone,name,'');state.bookings.filter(b=>b.phone===phone&&b.status==='pending').forEach(b=>b.status='cancelled');save();renderBkList();renderAdmAccounts();}
+function renderAdmAccounts(){
+  const el=$('accountsList');
+  const map={};
+  state.bookings.forEach(b=>{if(!b.phone)return;if(!map[b.phone])map[b.phone]={name:b.name,phone:b.phone,count:0,lastDate:'',active:0};map[b.phone].count++;if(!map[b.phone].lastDate||b.date>map[b.phone].lastDate)map[b.phone].lastDate=b.date;if(b.status==='pending'||b.status==='confirmed')map[b.phone].active++;});
+  if(state.user&&!map[state.user.phone])map[state.user.phone]={name:state.user.name,phone:state.user.phone,count:0,lastDate:'',active:0};
+  const users=Object.values(map);
+  if(!users.length){el.innerHTML=`<div class="empty"><div class="ei">👤</div><p>${t('emptyAcct')}</p></div>`;return;}
+  el.innerHTML=users.map(u=>{
+    const initials=u.name.trim().split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
+    const blked=isBlacklisted(u.phone);
+    return`<div class="acct-item${blked?' bk-item cancelled':''}">
+      <div class="acct-av" style="${blked?'background:var(--danger)':''}">${initials||'?'}</div>
+      <div style="flex:1"><div style="font-size:15px;font-weight:700">${u.name}${blked?' 🚫':''}</div>
+        <div style="font-size:13px;color:var(--muted);margin-top:2px">📞 ${u.phone}</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:3px">${u.count} תורים${u.lastDate?' · '+u.lastDate:''}</div></div>
+      ${u.active>0?`<div style="background:rgba(74,127,208,.12);color:var(--accent);font-size:11px;font-weight:700;padding:4px 10px;border-radius:6px">${u.active} פעיל</div>`:''}
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <a href="tel:${u.phone}" class="btn btn-ghost btn-sm">📞</a>
+        ${!blked?`<button class="btn btn-danger btn-sm" data-action="banClient" data-phone="${u.phone}" data-name="${u.name}">${t('actBan')}</button>`:`<button class="btn btn-ghost btn-sm" data-action="unbanClient" data-phone="${u.phone}">✓ ${t('blRemove')}</button>`}
+      </div></div>`;
+  }).join('');
+}
+function renderAdmBlacklist(){
+  const el=$('blacklistItems');
+  if(!state.blacklist.length){el.innerHTML=`<div class="empty"><div class="ei">✅</div><p>${t('blEmpty')}</p></div>`;return;}
+  el.innerHTML=state.blacklist.map((b,i)=>`<div class="bl-item">
+    <div style="font-size:24px">🚫</div>
+    <div style="flex:1"><div style="font-size:15px;font-weight:700">${b.name||b.phone}</div>
+      ${b.name?`<div style="font-size:13px;color:var(--muted)">📞 ${b.phone}</div>`:''}
+      ${b.reason?`<div style="font-size:12px;color:var(--muted);margin-top:2px">💬 ${b.reason}</div>`:''}
+      <div style="font-size:11px;color:var(--muted);margin-top:3px">${new Date(b.addedAt).toLocaleDateString()}</div>
+    </div>
+    <button class="btn btn-ghost btn-sm" data-action="removeBlacklist" data-idx="${i}">${t('blRemove')}</button>
+  </div>`).join('');
+}
+function renderAdmGal(){
+  const el=$('adminGalleryList');
+  if(!state.gallery.length){el.innerHTML=`<div class="empty" style="padding:20px"><div class="ei">🖼️</div><p>${t('emptyGal')}</p></div>`;return;}
+  el.innerHTML=state.gallery.map((img,i)=>`<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)">
+    <img src="${img.src}" style="width:52px;height:52px;object-fit:cover;border-radius:10px"/>
+    <div style="flex:1;font-size:13px;color:var(--muted)">${img.caption||'—'}</div>
+    <button class="btn btn-danger btn-sm" data-action="deleteGallery" data-idx="${i}">🗑️</button></div>`).join('');
+}
+function uploadGallery(){
+  const file=$('galleryUpload').files[0],cap=$('galleryCaption').value.trim();if(!file)return;
+  const r=new FileReader();r.onload=e=>{state.gallery.push({src:e.target.result,caption:cap});save();renderAdmGal();renderGallery();$('galleryUpload').value='';$('galleryCaption').value='';showToast(t('toastImgAdded'));};r.readAsDataURL(file);
+}
+function deleteGallery(idx){state.gallery.splice(idx,1);save();renderAdmGal();renderGallery();}
+function saveSettings(){
+  const phone=$('settingPhone').value.trim(),pwd=$('settingPwd').value.trim();
+  if(phone)state.settings.phone=phone;if(pwd)state.settings.adminPwd=pwd;
+  save();$('settingPwd').value='';showToast(t('toastSaved'));
+}
+function saveWaApi(){
+  state.settings.waToken=$('waToken').value.trim();
+  state.settings.waPhoneId=$('waPhoneId').value.trim();
+  save();updateWaStatus();showToast(t('toastSaved'));
+}
+async function testWaApi(){
+  const token=state.settings.waToken,pid=state.settings.waPhoneId;
+  if(!token||!pid){showToast(t('toastFill'));return;}
+  try{
+    const r=await fetch(`https://graph.facebook.com/v19.0/${pid}`,{headers:{'Authorization':`Bearer ${token}`}});
+    const d=await r.json();
+    if(d.id){showToast(t('toastWaOk'));$('waStatusBadge').className='wa-status ok';$('waStatusBadge').textContent='🟢 Online';}
+    else showToast(t('toastWaFail')+(d.error?' — '+d.error.message:''));
+  }catch{showToast(t('toastWaFail'));}
+}
+function exportData(){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(state,null,2)],{type:'application/json'}));a.download='guy-studio-backup.json';a.click();}
+function clearOldBookings(){if(!confirm(t('clearQ')))return;const cut=Date.now()-30*24*60*60*1000;state.bookings=state.bookings.filter(b=>new Date(b.createdAt).getTime()>cut);save();renderBkList();}
+function showForgot(){$('modalContent').innerHTML=`<h2 style="margin-bottom:14px">${t('forgotTitle')}</h2><p style="color:var(--muted);font-size:14px;line-height:1.6;margin-bottom:20px">${t('forgotBody')}</p><a href="https://wa.me/${state.settings.phone}" class="btn btn-wa btn-full" target="_blank">📲 WhatsApp</a><br><br><button class="btn btn-ghost btn-full" data-action="closeModal">${t('back')}</button>`;$('modalBg').classList.remove('hidden');}
+
+/* ── LOGO TAP (tap-tap…pause…tap-tap) ── */
+let logoLog=[];
+function onLogoTap(){
+  const now=Date.now();logoLog.push(now);if(logoLog.length>4)logoLog=logoLog.slice(-4);
+  if(logoLog.length===4){const[t1,t2,t3,t4]=logoLog;const p1=t2-t1,gap=t3-t2,p2=t4-t3;
+    if(p1<480&&gap>380&&gap<1900&&p2<480){logoLog=[];adminAuthed=true;goTo('sAdmin');return;}}
+  clearTimeout(logoLog._t);logoLog._t=setTimeout(()=>{logoLog=[];},2500);
+}
+
+/* ── UTILS ── */
+function $(id){return document.getElementById(id);}
+function $t(id,txt){const el=$(id);if(el&&typeof txt==='string')el.textContent=txt;}
+function showToast(msg){const el=$('toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2800);}
+
+/* ── EVENTS ── */
+document.addEventListener('click',e=>{
+  const el=e.target.closest('[data-action]');if(!el)return;
+  const a=el.dataset.action;
+  if(a==='go'){goTo(el.dataset.screen);return;}
+  switch(a){
+    case 'tryBook':tryBook(null);break;
+    case 'tryBookSvc':tryBook(+el.dataset.id);break;
+    case 'submitReg':submitReg();break;
+    case 'editProfile':showRegSheet();break;
+    case 'wizNext':wizNext();break;
+    case 'wizBack':wizBack();break;
+    case 'wizClose':closeWizard();break;
+    case 'wizSelSvc':wizData.serviceId=+el.dataset.id;document.querySelectorAll('.wiz-svc').forEach(s=>s.classList.toggle('sel',+s.dataset.id===wizData.serviceId));break;
+    case 'wizSelDate':wizData.date=el.dataset.date;document.querySelectorAll('.cal-day').forEach(d=>d.classList.toggle('sel',d.dataset.date===wizData.date));break;
+    case 'wizSelTime':wizData.time=el.dataset.time;document.querySelectorAll('.t-slot').forEach(s=>s.classList.toggle('sel',s.dataset.time===wizData.time));break;
+    case 'calPrev':calMonth--;if(calMonth<0){calMonth=11;calYear--;}renderWiz2();break;
+    case 'calNext':calMonth++;if(calMonth>11){calMonth=0;calYear++;}renderWiz2();break;
+    case 'settingsLogin':goTo('sAdmin');break;
+    case 'settingsLogout':adminAuthed=false;showToast(t('toastLoggedOut'));renderSettings();break;
+    case 'goAdmin':goTo('sAdmin');break;
+    case 'forgotPwd':showForgot();break;
+    case 'adminLogin':doAdminLogin();break;
+    case 'adminLogout':adminAuthed=false;goTo('sHome');break;
+    case 'admTab':admTab(el.dataset.tab);break;
+    case 'filterBk':bkFilter=el.dataset.filter;if(bkView==='list')renderBkList();else renderMonitor();break;
+    case 'toggleBkView':toggleBkView();break;
+    case 'advanceBk':advanceBk(el.dataset.bid);break;
+    case 'completeBk':completeBk(el.dataset.bid);renderBkList();break;
+    case 'confirmWA':confirmWA(el.dataset.bid);break;
+    case 'resendWA':confirmWA(el.dataset.bid);break;
+    case 'sendReminder':sendReminder(el.dataset.bid);break;
+    case 'cancelBk':cancelBk(el.dataset.bid);break;
+    case 'deleteBk':deleteBk(el.dataset.bid);break;
+    case 'banClient':banClient(el.dataset.phone,el.dataset.name);break;
+    case 'unbanClient':{const p=String(el.dataset.phone).replace(/\D/g,'');const idx=state.blacklist.findIndex(b=>String(b.phone).replace(/\D/g,'')===p);if(idx>=0)removeFromBlacklist(idx);renderAdmAccounts();}break;
+    case 'addBlacklist':{const p=$('blPhone').value.trim(),n=$('blName').value.trim(),r=$('blReason').value.trim();if(!p){showToast(t('toastFill'));return;}addToBlacklist(p,n,r);$('blPhone').value='';$('blName').value='';$('blReason').value='';renderAdmBlacklist();}break;
+    case 'removeBlacklist':removeFromBlacklist(+el.dataset.idx);break;
+    case 'uploadGallery':uploadGallery();break;
+    case 'deleteGallery':deleteGallery(+el.dataset.idx);break;
+    case 'saveSettings':saveSettings();break;
+    case 'saveWaApi':saveWaApi();break;
+    case 'testWaApi':testWaApi();break;
+    case 'exportData':exportData();break;
+    case 'clearBookings':clearOldBookings();break;
+    case 'closeModal':$('modalBg').classList.add('hidden');break;
+  }
+});
+document.addEventListener('click',e=>{if(e.target.closest('#logoImg'))onLogoTap();});
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-lang]');if(!b)return;setLang(b.dataset.lang);
+  const ac=document.querySelector('.screen.active');
+  if(ac.id==='sHome')renderHome();if(ac.id==='sSettings')renderSettings();if(ac.id==='sAdmin')renderAdmin();
+});
+$('adminPwd').addEventListener('keydown',e=>{if(e.key==='Enter')doAdminLogin();});
+$('modalBg').addEventListener('click',e=>{if(e.target===$('modalBg'))$('modalBg').classList.add('hidden');});
+document.addEventListener('touchstart',e=>{
+  if(navigator.vibrate&&e.target.closest('.btn,.service-card,.wiz-svc,.cal-day:not(:disabled),.t-slot:not(:disabled),.nav-btn,.wiz-icon-btn,.lang-btn,.gallery-item'))
+    navigator.vibrate(6);
+},{passive:true});
+
+/* ── INIT ── */
+setLang(state.settings.lang||'he');
+goTo('sHome');
 </script>
 </body>
 </html>
