@@ -517,7 +517,7 @@ he:{
   admDashTitle:'ניהול הסטודיו',admLogout:'יציאה',
   tabBk:'תורים',tabAcc:'לקוחות',tabBl:'חסומים',tabGal:'גלריה',tabSet:'הגדרות',
   fAll:'הכל',fPend:'ממתינות',fConf:'מאושרות',
-  admUploadTitle:'העלאת תמונה',admUploadLbl:'בחרי תמונה',admCaptionLbl:'כיתוב',admUploadBtn:'הוסף',
+  admUploadTitle:'העלאת תמונה',admUploadLbl:'בחירת תמונה',admCaptionLbl:'כיתוב',admUploadBtn:'הוסף',
   admExistingTitle:'תמונות קיימות',admSetTitle:'הגדרות כלליות',
   admPhoneLbl:'WhatsApp (קוד מדינה + מספר)',admPwdChangeLbl:'שינוי סיסמת מנהל',admSaveBtn:'שמור',
   admDataTitle:'ניהול נתונים',admExportBtn:'ייצוא JSON',admClearBtn:'מחק ישנות',
@@ -525,11 +525,11 @@ he:{
   waSaveBtn:'שמור API',waTestBtn:'בדיקת חיבור',
   waApiNote:'',
   waSteps:[
-    {n:1,txt:'היכנסי ל-business.facebook.com',sub:'חשבון פייסבוק עסקי רגיל'},
-    {n:2,txt:'צרי אפליקציה → בחרי "WhatsApp"',sub:'בתפריט "My Apps" → "Create App"'},
-    {n:3,txt:'העתיקי את Access Token',sub:'מופיע בדף API Setup תחת "Temporary token"'},
-    {n:4,txt:'העתיקי את Phone Number ID',sub:'מספר בן ~15 ספרות בדף API Setup'},
-    {n:5,txt:'הדביקי כאן ולחצי שמור',sub:'לאחר מכן לחצי "בדיקת חיבור" לאימות'},
+    {n:1,txt:'כניסה ל-business.facebook.com',sub:'חשבון פייסבוק עסקי רגיל'},
+    {n:2,txt:'יצירת אפליקציה → בחירת "WhatsApp"',sub:'בתפריט "My Apps" → "Create App"'},
+    {n:3,txt:'העתקת Access Token',sub:'מופיע בדף API Setup תחת "Temporary token"'},
+    {n:4,txt:'העתקת Phone Number ID',sub:'מספר בן ~15 ספרות בדף API Setup'},
+    {n:5,txt:'הדבקה כאן ושמירה',sub:'לאחר מכן לחץ "בדיקת חיבור" לאימות'},
   ],
   blAddTitle:'הוספה לרשימה השחורה',blPhoneLbl:'מספר טלפון',blNameLbl:'שם (אופציונלי)',blReasonLbl:'סיבה',blAddBtn:'הוסף',blListTitle:'רשימה שחורה',blEmpty:'אין לקוחות חסומים',blRemove:'הסר',
   navHome:'בית',navSettings:'הגדרות',
@@ -544,9 +544,9 @@ he:{
   emptyBk:'אין הזמנות',emptyGal:'אין תמונות',emptyAcct:'אין לקוחות',
   deleteQ:'למחוק?',clearQ:'למחוק הזמנות מעל 30 יום?',
   forgotTitle:'שחזור סיסמה',forgotBody:'לשחזור הגישה פנה דרך הוואטסאפ:',back:'חזרה',
-  regTitle:'ברוכה הבאה 💅',regSub:'קצת פרטים ונתחיל',regNameLbl:'שם מלא',regPhoneLbl:'מספר טלפון',regSubmitBtn:'המשך ←',
-  wiz1Title:'בחרי שירות',wiz1Sub:'על מה תרצי לקבוע תור?',wiz2Title:'בחרי תאריך',wiz2Sub:'מתי נוח לך?',
-  wiz3Title:'בחרי שעה',wiz3Sub:'',wiz4Title:'פרטים אישיים',wiz4Sub:'',wiz5Title:'אישור הזמנה',wiz5Sub:'הכל נראה טוב?',
+  regTitle:'ברוכים הבאים 💅',regSub:'קצת פרטים ונתחיל',regNameLbl:'שם מלא',regPhoneLbl:'מספר טלפון',regSubmitBtn:'המשך ←',
+  wiz1Title:'בחירת שירות',wiz1Sub:'באיזה טיפול מעוניינים?',wiz2Title:'בחירת תאריך',wiz2Sub:'מתי נוח?',
+  wiz3Title:'בחירת שעה',wiz3Sub:'',wiz4Title:'פרטים אישיים',wiz4Sub:'',wiz5Title:'אישור הזמנה',wiz5Sub:'הכל נראה טוב?',
   fName:'שם מלא',fPhone:'מספר טלפון',fNotes:'הערות (אופציונלי)',phName:'השם שלך',phNotes:'עיצוב מיוחד, צבע...',
   nextBtn:'הבא →',submitBtn:'הזמנה בוואטסאפ',
   morning:'בוקר',afternoon:'צהריים',evening:'ערב',
@@ -751,7 +751,7 @@ function showRegSheet(){
   if(state.user){$('regName').value=state.user.name||'';$('regPhone').value=state.user.phone||'';}
   $('regSheet').classList.add('open');document.body.style.overflow='hidden';
 }
-function closeRegSheet(){$('regSheet').classList.remove('open');document.body.style.overflow='';}
+function closeRegSheet(){const b=$('regSheet').querySelector('.reg-body');b.style.transform='';$('regSheet').classList.remove('open');document.body.style.overflow='';}
 function submitReg(){
   const name=$('regName').value.trim(),phone=$('regPhone').value.trim();
   if(!name||!phone){showToast(t('toastFill'));return;}
@@ -1210,6 +1210,25 @@ document.addEventListener('click',e=>{
 });
 $('adminPwd').addEventListener('keydown',e=>{if(e.key==='Enter')doAdminLogin();});
 $('modalBg').addEventListener('click',e=>{if(e.target===$('modalBg'))$('modalBg').classList.add('hidden');});
+// Swipe-to-dismiss reg sheet
+(()=>{
+  const sheet=$('regSheet'),body=sheet.querySelector('.reg-body');
+  let startY=0,dragging=false;
+  body.addEventListener('touchstart',e=>{startY=e.touches[0].clientY;dragging=true;body.style.transition='none';},{passive:true});
+  body.addEventListener('touchmove',e=>{
+    if(!dragging)return;
+    const dy=e.touches[0].clientY-startY;
+    if(dy>0)body.style.transform=`translateY(${dy}px)`;
+  },{passive:true});
+  body.addEventListener('touchend',e=>{
+    const dy=e.changedTouches[0].clientY-startY;
+    body.style.transition='';
+    if(dy>90)closeRegSheet();
+    else body.style.transform='';
+    dragging=false;
+  });
+  sheet.addEventListener('click',e=>{if(e.target===sheet)closeRegSheet();});
+})();
 document.addEventListener('touchstart',e=>{
   if(navigator.vibrate&&e.target.closest('.btn,.service-card,.wiz-svc,.cal-day:not(:disabled),.t-slot:not(:disabled),.nav-btn,.wiz-icon-btn,.lang-btn,.gallery-item'))
     navigator.vibrate(6);
