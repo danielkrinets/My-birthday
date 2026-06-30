@@ -237,6 +237,18 @@ nav{position:fixed;bottom:0;left:0;right:0;height:72px;background:rgba(248,244,2
 .toast.show{opacity:1}
 .empty{text-align:center;padding:40px 24px;color:var(--muted)}
 .empty .ei{font-size:38px;margin-bottom:10px}
+img{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
+
+/* ── LIGHTBOX ── */
+#lightbox{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.97);display:none;flex-direction:column;align-items:center;justify-content:center}
+#lightbox.open{display:flex}
+.lb-close{position:absolute;top:max(20px,env(safe-area-inset-top));right:16px;width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.18);border:none;color:#fff;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;touch-action:manipulation;transition:transform 55ms,opacity 60ms;z-index:1}
+.lb-close:active{transform:scale(0.82);opacity:.7}
+.lb-arr{position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.18);border:none;color:#fff;font-size:30px;cursor:pointer;display:flex;align-items:center;justify-content:center;touch-action:manipulation;transition:transform 55ms,opacity 60ms;line-height:1}
+.lb-arr:active{transform:translateY(-50%) scale(0.82);opacity:.7}
+#lbPrev{left:12px}#lbNext{right:12px}
+#lbImg{max-width:100%;max-height:82vh;object-fit:contain;border-radius:6px;-webkit-touch-callout:none;user-select:none}
+#lbCounter{position:absolute;top:max(24px,env(safe-area-inset-top));left:50%;transform:translateX(-50%);color:rgba(255,255,255,.6);font-size:13px;font-weight:600;pointer-events:none}
 </style>
 </head>
 <body>
@@ -259,6 +271,7 @@ nav{position:fixed;bottom:0;left:0;right:0;height:72px;background:rgba(248,244,2
   <div class="trust-block"><h3 id="hTrustTitle"></h3><p id="hTrustBody"></p></div>
   <p class="sec-title" id="hSecSvc"></p>
   <div id="homeServices"></div>
+  <div id="homeLocation"></div>
   <p class="sec-title" id="hSecGal"></p>
   <div class="gallery-grid" id="homeGallery"></div>
   <div style="height:20px"></div>
@@ -289,15 +302,14 @@ nav{position:fixed;bottom:0;left:0;right:0;height:72px;background:rgba(248,244,2
   </div>
   <div class="card">
     <div class="s-head" id="stAbout"></div>
-    <div class="s-row"><div class="s-label" style="display:flex;align-items:center;gap:7px"><img src="phone.png" style="width:16px;height:16px;opacity:.6"> 050-659-8734</div><a href="tel:0506598734" class="btn btn-ghost btn-sm" id="stCall"></a></div>
-    <div class="s-row" style="border:none"><div class="s-label" style="display:flex;align-items:center;gap:8px"><img src="land-plot.png" style="width:18px;height:18px;opacity:.6"> <span id="stLoc"></span></div></div>
+    <div class="s-row" style="border:none"><div class="s-label" style="display:flex;align-items:center;gap:7px"><img src="phone.png" style="width:16px;height:16px;opacity:.6"> 050-659-8734</div><a href="tel:0506598734" class="btn btn-ghost btn-sm" id="stCall"></a></div>
   </div>
 </div>
 
 <!-- ══ ADMIN ══ -->
 <div id="sAdmin" class="screen">
   <div id="adminLogin" class="adm-login">
-    <div style="margin-bottom:16px"><img src="lock-keyhole.png" style="width:56px;height:56px;opacity:.7"></div>
+    <div style="margin-bottom:16px"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16" r="1.5" fill="var(--muted)" stroke="none"/></svg></div>
     <h2 style="margin-bottom:20px;font-size:22px" id="admLoginTitle"></h2>
     <div style="width:100%;max-width:320px">
       <div class="form-group"><label id="admPwdLbl"></label><input type="password" id="adminPwd" autocomplete="current-password"/></div>
@@ -325,6 +337,7 @@ nav{position:fixed;bottom:0;left:0;right:0;height:72px;background:rgba(248,244,2
         <button class="btn btn-ghost btn-sm" data-action="filterBk" data-filter="confirmed" id="fConf"></button>
         <div style="flex:1"></div>
         <button class="btn btn-ghost btn-sm" data-action="remindTmr" id="remindTmrBtn" style="padding:8px 12px;display:flex;align-items:center;gap:5px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg> <span id="remindTmrLbl"></span></button>
+        <button class="btn btn-ghost btn-sm" data-action="showSchedule" style="padding:8px 12px;display:flex;align-items:center;gap:5px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg> <span id="scheduleBtn"></span></button>
         <button class="btn btn-ghost btn-sm" data-action="toggleBkView" id="viewToggleBtn" style="padding:8px 12px"><img class="bi" src="monitor-play.png" id="viewToggleIcn"></button>
       </div>
       <div id="bookingsList"></div>
@@ -387,12 +400,22 @@ nav{position:fixed;bottom:0;left:0;right:0;height:72px;background:rgba(248,244,2
   </div>
 </div>
 
+<!-- ══ MY BOOKING ══ -->
+<div id="sMyBooking" class="screen">
+  <div class="ph"><h1 id="myBkTitle"></h1></div>
+  <div id="myBkContent"></div>
+</div>
+
 <!-- NAV -->
 <nav>
   <button class="nav-btn active" data-action="go" data-screen="sHome">
     <svg class="nav-icn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
     <span id="navHome"></span>
     <span class="nav-dot" id="navDot"></span>
+  </button>
+  <button class="nav-btn" data-action="go" data-screen="sMyBooking" id="myBkNav" style="display:none">
+    <svg class="nav-icn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><circle cx="12" cy="16" r="2" fill="currentColor"/></svg>
+    <span id="navMyBk"></span>
   </button>
   <button class="nav-btn" data-action="go" data-screen="sSettings">
     <svg class="nav-icn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
@@ -435,6 +458,13 @@ nav{position:fixed;bottom:0;left:0;right:0;height:72px;background:rgba(248,244,2
   </div>
 </div>
 
+<div id="lightbox">
+  <button class="lb-close" data-action="lbClose">✕</button>
+  <span id="lbCounter"></span>
+  <button class="lb-arr" id="lbPrev" data-action="lbPrev">‹</button>
+  <img id="lbImg" src="" alt="">
+  <button class="lb-arr" id="lbNext" data-action="lbNext">›</button>
+</div>
 <div id="modalBg" class="modal-bg hidden">
   <div class="modal"><div class="modal-handle"></div><div id="modalContent"></div></div>
 </div>
@@ -474,6 +504,7 @@ async function fbLoad(){
       if(d.bookings)state.bookings=Object.values(d.bookings);
       if(d.blacklist)state.blacklist=Object.values(d.blacklist);
       if(d.gallery)state.gallery=Array.isArray(d.gallery)?d.gallery:Object.values(d.gallery);
+      if(d.blockedSlots)state.blockedSlots=Array.isArray(d.blockedSlots)?d.blockedSlots:Object.values(d.blockedSlots);
     }
     localStorage.setItem(KEY,JSON.stringify(state));
     const ac=document.querySelector('.screen.active');
@@ -494,7 +525,8 @@ function fbPush(){
         settings:state.settings,
         bookings:bkObj,
         blacklist:blObj,
-        gallery:state.gallery
+        gallery:state.gallery,
+        blockedSlots:state.blockedSlots||[]
       });
     }catch(e){console.warn('Firebase push:',e);}
   },600);
@@ -532,7 +564,8 @@ he:{
     {n:5,txt:'הדבקה כאן ושמירה',sub:'לאחר מכן לחץ "בדיקת חיבור" לאימות'},
   ],
   blAddTitle:'הוספה לרשימה השחורה',blPhoneLbl:'מספר טלפון',blNameLbl:'שם (אופציונלי)',blReasonLbl:'סיבה',blAddBtn:'הוסף',blListTitle:'רשימה שחורה',blEmpty:'אין לקוחות חסומים',blRemove:'הסר',
-  navHome:'בית',navSettings:'הגדרות',
+  navHome:'בית',navMyBk:'התור שלי',navSettings:'הגדרות',
+  myBkTitle:'התור שלי',scheduleBtn:'זמינות',openMap:'פתח במפה',
   stPending:'ממתינה',stConfirmed:'בטיפול',stCancelled:'בוטלה',stCompleted:'הושלמה',
   monNew:'חדשות',monProgress:'בטיפול',monDone:'הושלמו',
   monStartBtn:'התחל',monDoneBtn:'הושלם',monViewList:'list',monViewMon:'monitor',
@@ -587,7 +620,8 @@ ru:{
     {n:5,txt:'Вставь сюда и нажми Сохранить',sub:'Затем нажми "Проверить соединение"'},
   ],
   blAddTitle:'Добавить в чёрный список',blPhoneLbl:'Телефон',blNameLbl:'Имя (необязательно)',blReasonLbl:'Причина',blAddBtn:'Заблокировать',blListTitle:'Чёрный список',blEmpty:'Список пуст',blRemove:'Удалить',
-  navHome:'Главная',navSettings:'Настройки',
+  navHome:'Главная',navMyBk:'Моя запись',navSettings:'Настройки',
+  myBkTitle:'Моя запись',scheduleBtn:'Расписание',openMap:'Открыть карту',
   stPending:'Ожидает',stConfirmed:'В работе',stCancelled:'Отменена',stCompleted:'Выполнена',
   monNew:'Новые',monProgress:'В работе',monDone:'Готово',
   monStartBtn:'Начать',monDoneBtn:'Готово',monViewList:'list',monViewMon:'monitor',
@@ -617,7 +651,7 @@ function t(k){const l=state?.settings?.lang||'he';const v=(S[l]&&S[l][k]!==undef
 /* ── STATE ── */
 const KEY='gs_v095';
 const DEFAULTS={
-  user:null,blacklist:[],
+  user:null,blacklist:[],blockedSlots:[],
   services:[
     {id:1,name:"מניקור ג'ל",nameRu:'Маникюр гель',desc:"מניקור יסודי ומריחת ג'ל",descRu:'Маникюр с гель-лаком',price:'₪120',icon:'💅'},
     {id:2,name:'בניית ציפורניים',nameRu:'Наращивание',desc:"בנייה באקריל/ג'ל",descRu:'Акрил/гель наращивание',price:'₪250',icon:'💎'},
@@ -692,6 +726,7 @@ function goTo(id){
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.screen===id));
   if(id==='sHome')renderHome();
   if(id==='sSettings')renderSettings();
+  if(id==='sMyBooking')renderMyBooking();
   if(id==='sAdmin')renderAdmin();
   window.scrollTo(0,0);
 }
@@ -702,7 +737,25 @@ function renderHome(){
   $t('hTitle',t('heroTitle'));$t('hSub',t('heroSub'));$t('hBookBtn',t('bookBtn'));
   $t('hTrustTitle',t('trustTitle'));$t('hTrustBody',t('trustBody'));
   $t('hSecSvc',t('secSvc'));$t('hSecGal',t('secGal'));$t('devCredit',t('devCredit'));
-  $t('navHome',t('navHome'));$t('navSettings',t('navSettings'));
+  $t('navHome',t('navHome'));$t('navSettings',t('navSettings'));$t('navMyBk',t('navMyBk'));
+  // Location card
+  const locEl=$('homeLocation');
+  if(locEl){
+    const addr=ru?'Торговый центр Димона':'מרכז מסחרי דימונה';
+    const mapUrl='https://maps.google.com/?q=31.065,35.035';
+    locEl.innerHTML=`<div style="margin:0 16px 14px">
+      <div style="border-radius:18px;overflow:hidden;box-shadow:var(--sh0);border:1px solid var(--border)">
+        <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=35.020,31.055,35.055,31.075&layer=mapnik&marker=31.065,35.035" style="width:100%;height:150px;border:none;display:block" loading="lazy"></iframe>
+        <div style="padding:12px 16px;display:flex;align-items:center;justify-content:space-between;background:var(--surface)">
+          <div style="display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            ${addr}
+          </div>
+          <a href="${mapUrl}" target="_blank" rel="noopener" class="btn btn-primary btn-sm" style="text-decoration:none;white-space:nowrap">${t('openMap')}</a>
+        </div>
+      </div>
+    </div>`;
+  }
   $('hBadges').innerHTML=['badge1','badge2','badge3','badge4'].map(k=>`<div class="badge">${t(k)}</div>`).join('');
   $('homeServices').innerHTML=state.services.map(s=>{
     const name=ru&&s.nameRu?s.nameRu:s.name,desc=ru&&s.descRu?s.descRu:s.desc;
@@ -714,9 +767,9 @@ function renderHome(){
 }
 function renderGallery(){
   const g=$('homeGallery');if(!g)return;
-  g.innerHTML=state.gallery.map(img=>{
+  g.innerHTML=state.gallery.map((img,i)=>{
     let cls='gallery-item';if(img.wide)cls+=' wide';else if(img.landscape)cls+=' landscape';
-    return`<div class="${cls}"><img src="${img.src}" alt="${img.caption||''}" loading="lazy"/></div>`;
+    return`<div class="${cls}" data-action="openLb" data-idx="${i}"><img src="${img.src}" alt="${img.caption||''}" loading="lazy"/></div>`;
   }).join('');
 }
 function getMyBk(){return state.user?state.bookings.filter(b=>b.phone===state.user.phone&&b.status!=='cancelled'):[];}
@@ -735,6 +788,36 @@ function updateBanner(){
     $t('actBkBtn',t('actBkBtn'));
   }else banner.classList.remove('on');
   if(dot)dot.classList.toggle('on',bks.length>0);
+  const myBkNav=$('myBkNav');
+  if(myBkNav)myBkNav.style.display=bks.length>0?'':'none';
+}
+
+/* ── MY BOOKING ── */
+function renderMyBooking(){
+  $t('myBkTitle',t('myBkTitle'));
+  const ru=state.settings.lang==='ru';
+  const bks=getMyBk();
+  const el=$('myBkContent');if(!el)return;
+  if(!bks.length){el.innerHTML=`<div style="text-align:center;padding:60px 20px;color:var(--muted)"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:12px;opacity:.4"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><p>${ru?'Нет активных записей':'אין תורים פעילים'}</p></div>`;return;}
+  const sc={pending:'sp',confirmed:'sc',cancelled:'sx',completed:'sc'};
+  const sl={pending:t('stPending'),confirmed:t('stConfirmed'),cancelled:t('stCancelled'),completed:t('stCompleted')};
+  el.innerHTML=bks.map(b=>{
+    const svc=state.services.find(s=>s.id===b.serviceId);
+    const svcName=svc?(ru&&svc.nameRu?svc.nameRu:svc.name):'';
+    const[,mm,dd]=b.date.split('-');
+    return`<div class="card" style="margin:12px 16px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <div style="font-size:17px;font-weight:700">${svcName}</div>
+        <span class="bk-lbl ${sc[b.status]||''}">${sl[b.status]||b.status}</span>
+      </div>
+      <div style="color:var(--muted);font-size:14px;line-height:1.8">
+        📅 ${dd}.${mm} · ${b.time}
+        ${b.notes?`<br>📝 ${b.notes}`:''}
+        ${svc?`<br>💰 ${svc.price}`:''}
+      </div>
+      ${b.status==='pending'?`<div style="margin-top:12px"><button class="btn btn-ghost btn-sm" data-action="cancelMyBk" data-bid="${b.id}">${t('actCancel')}</button></div>`:''}
+    </div>`;
+  }).join('');
 }
 
 /* ── REGISTRATION ── */
@@ -745,18 +828,73 @@ function tryBook(preId){
   if(isBlacklisted(state.user.phone)){showToast(t('toastBlocked'));return;}
   openWizard(preId||null);
 }
+let regOtp=null,regPending=null;
+function restoreRegSheet(){
+  $('regSheet').querySelector('.reg-body').innerHTML=`
+    <div class="reg-handle"></div>
+    <div style="font-size:22px;font-weight:800;margin-bottom:6px" id="regTitle"></div>
+    <div style="font-size:14px;color:var(--muted);margin-bottom:22px;line-height:1.5" id="regSub"></div>
+    <div class="form-group"><label id="regNameLbl"></label><input type="text" id="regName" autocomplete="name"/></div>
+    <div class="form-group"><label id="regPhoneLbl"></label><input type="tel" id="regPhone" placeholder="05X-XXXXXXX" autocomplete="tel"/></div>
+    <button class="btn btn-primary btn-full" style="font-size:16px;padding:15px" data-action="submitReg" id="regSubmitBtn"></button>`;
+}
 function showRegSheet(){
+  restoreRegSheet();
   $t('regTitle',t('regTitle'));$t('regSub',t('regSub'));
   $t('regNameLbl',t('regNameLbl'));$t('regPhoneLbl',t('regPhoneLbl'));$t('regSubmitBtn',t('regSubmitBtn'));
   if(state.user){$('regName').value=state.user.name||'';$('regPhone').value=state.user.phone||'';}
   $('regSheet').classList.add('open');document.body.style.overflow='hidden';
 }
-function closeRegSheet(){const b=$('regSheet').querySelector('.reg-body');b.style.transform='';$('regSheet').classList.remove('open');document.body.style.overflow='';}
-function submitReg(){
-  const name=$('regName').value.trim(),phone=$('regPhone').value.trim();
+function closeRegSheet(){
+  const b=$('regSheet').querySelector('.reg-body');
+  b.style.transform='';
+  $('regSheet').classList.remove('open');
+  document.body.style.overflow='';
+  regOtp=null;regPending=null;
+}
+async function submitReg(){
+  const name=($('regName')||{value:''}).value.trim(),phone=($('regPhone')||{value:''}).value.trim();
   if(!name||!phone){showToast(t('toastFill'));return;}
   if(isBlacklisted(phone)){showToast(t('toastBlocked'));return;}
+  if(hasWaApi()){
+    regPending={name,phone};
+    regOtp=String(Math.floor(100000+Math.random()*900000));
+    const ru=state.settings.lang==='ru';
+    const msg=`🔐 ${ru?'Код подтверждения':'קוד אימות'}: *${regOtp}*\n— ${ru?'Guy Nails':'סטודיו גיא'}`;
+    const sent=await waApiSend(phone,msg);
+    if(sent){showOtpStep();return;}
+  }
+  completeReg(name,phone);
+}
+function showOtpStep(){
+  const ru=state.settings.lang==='ru';
+  $('regSheet').querySelector('.reg-body').innerHTML=`
+    <div class="reg-handle"></div>
+    <div style="font-size:22px;font-weight:800;margin-bottom:6px">${ru?'Подтверждение':'אימות מספר'}</div>
+    <div style="font-size:14px;color:var(--muted);margin-bottom:22px;line-height:1.5">${ru?'Код отправлен в WhatsApp':'קוד נשלח לוואטסאפ שלך'}</div>
+    <div class="form-group"><label>${ru?'Код из WhatsApp':'קוד מוואטסאפ'}</label>
+    <input type="text" id="otpInput" placeholder="123456" inputmode="numeric" autocomplete="one-time-code" style="letter-spacing:6px;font-size:24px;text-align:center"/></div>
+    <button class="btn btn-primary btn-full" style="font-size:16px;padding:15px;margin-bottom:12px" data-action="submitOtp">${ru?'Подтвердить':'אמת'}</button>
+    <button class="btn btn-ghost btn-full btn-sm" data-action="resendOtp">${ru?'Отправить снова':'שלח שוב'}</button>`;
+  showToast(ru?'✅ Код отправлен!':'✅ קוד נשלח!');
+}
+function submitOtp(){
+  const entered=(document.getElementById('otpInput')||{value:''}).value.trim();
+  const ru=state.settings.lang==='ru';
+  if(!entered){showToast(t('toastFill'));return;}
+  if(entered===regOtp)completeReg(regPending.name,regPending.phone);
+  else showToast(ru?'❌ Неверный код':'❌ קוד שגוי');
+}
+async function resendOtp(){
+  if(!regPending)return;
+  regOtp=String(Math.floor(100000+Math.random()*900000));
+  const ru=state.settings.lang==='ru';
+  await waApiSend(regPending.phone,`🔐 ${ru?'Код подтверждения':'קוד אימות'}: *${regOtp}*\n— ${ru?'Guy Nails':'סטודיו גיא'}`);
+  showToast(ru?'✅ Код отправлен!':'✅ קוד נשלח!');
+}
+function completeReg(name,phone){
   state.user={name,phone,registeredAt:new Date().toISOString()};save();
+  regOtp=null;regPending=null;
   closeRegSheet();openWizard(regForId);
 }
 
@@ -829,10 +967,11 @@ function renderWiz2(){
 }
 function renderWiz3(){
   const taken=new Set(state.bookings.filter(b=>b.date===wizData.date&&b.status!=='cancelled').map(b=>b.time));
+  const blocked=new Set((state.blockedSlots||[]).filter(k=>k.startsWith(wizData.date+' ')).map(k=>k.slice(11)));
   let html=`<div class="wiz-h">${t('wiz3Title')}</div><div style="font-size:14px;color:var(--muted);margin-bottom:18px;font-weight:600">${wizData.date}</div>`;
   TIME_GROUPS.forEach(g=>{
     html+=`<div class="tg-label">${t(g.key)}</div><div class="time-grid">`;
-    g.slots.forEach(sl=>{const busy=taken.has(sl),sel=wizData.time===sl;html+=`<button class="t-slot${sel?' sel':''}" ${busy?'disabled':''} data-action="wizSelTime" data-time="${sl}">${sl}</button>`;});
+    g.slots.forEach(sl=>{const busy=taken.has(sl)||blocked.has(sl),sel=wizData.time===sl;html+=`<button class="t-slot${sel?' sel':''}" ${busy?'disabled':''} data-action="wizSelTime" data-time="${sl}">${sl}</button>`;});
     html+='</div>';
   });
   $('wizS3').innerHTML=html;
@@ -897,7 +1036,7 @@ function renderSettings(){
 
 /* ── ADMIN ── */
 function renderAdmin(){
-  const ids={admLoginTitle:'admLoginTitle',admPwdLbl:'admPwdLbl',admLoginBtn:'admLoginBtn',admBackBtn:'admBackBtn',admDashTitle:'admDashTitle',admLogoutBtn:'admLogout',admTabBk:'tabBk',admTabAcc:'tabAcc',admTabBl:'tabBl',admTabGal:'tabGal',admTabSet:'tabSet',fAll:'fAll',fPend:'fPend',fConf:'fConf',remindTmrLbl:'remindTmrBtn',admUploadTitle:'admUploadTitle',admUploadLbl:'admUploadLbl',admCaptionLbl:'admCaptionLbl',admUploadBtn:'admUploadBtn',admExistingTitle:'admExistingTitle',admSetTitle:'admSetTitle',admPhoneLbl:'admPhoneLbl',admPwdChangeLbl:'admPwdChangeLbl',admSaveBtn:'admSaveBtn',admDataTitle:'admDataTitle',admExportBtn:'admExportBtn',admClearBtn:'admClearBtn',waApiTitle:'waApiTitle',waTokenLbl:'waTokenLbl',waPhoneIdLbl:'waPhoneIdLbl',waSaveBtn:'waSaveBtn',waTestBtn:'waTestBtn',blAddTitle:'blAddTitle',blPhoneLbl:'blPhoneLbl',blNameLbl:'blNameLbl',blReasonLbl:'blReasonLbl',blAddBtn:'blAddBtn',blListTitle:'blListTitle'};
+  const ids={admLoginTitle:'admLoginTitle',admPwdLbl:'admPwdLbl',admLoginBtn:'admLoginBtn',admBackBtn:'admBackBtn',admDashTitle:'admDashTitle',admLogoutBtn:'admLogout',admTabBk:'tabBk',admTabAcc:'tabAcc',admTabBl:'tabBl',admTabGal:'tabGal',admTabSet:'tabSet',fAll:'fAll',fPend:'fPend',fConf:'fConf',remindTmrLbl:'remindTmrBtn',scheduleBtn:'scheduleBtn',admUploadTitle:'admUploadTitle',admUploadLbl:'admUploadLbl',admCaptionLbl:'admCaptionLbl',admUploadBtn:'admUploadBtn',admExistingTitle:'admExistingTitle',admSetTitle:'admSetTitle',admPhoneLbl:'admPhoneLbl',admPwdChangeLbl:'admPwdChangeLbl',admSaveBtn:'admSaveBtn',admDataTitle:'admDataTitle',admExportBtn:'admExportBtn',admClearBtn:'admClearBtn',waApiTitle:'waApiTitle',waTokenLbl:'waTokenLbl',waPhoneIdLbl:'waPhoneIdLbl',waSaveBtn:'waSaveBtn',waTestBtn:'waTestBtn',blAddTitle:'blAddTitle',blPhoneLbl:'blPhoneLbl',blNameLbl:'blNameLbl',blReasonLbl:'blReasonLbl',blAddBtn:'blAddBtn',blListTitle:'blListTitle'};
   Object.entries(ids).forEach(([el,k])=>$t(el,t(k)));
   if(!adminAuthed){$('adminLogin').style.display='flex';$('adminDash').style.display='none';}
   else{$('adminLogin').style.display='none';$('adminDash').style.display='block';
@@ -1135,16 +1274,100 @@ async function testWaApi(){
 }
 function exportData(){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(state,null,2)],{type:'application/json'}));a.download='guy-studio-backup.json';a.click();}
 function clearOldBookings(){if(!confirm(t('clearQ')))return;const cut=Date.now()-30*24*60*60*1000;const old=state.bookings.filter(b=>new Date(b.createdAt).getTime()<=cut);state.bookings=state.bookings.filter(b=>new Date(b.createdAt).getTime()>cut);save();if(db)old.forEach(b=>db.doc(`bookings/${b.id}`).delete().catch(()=>{}));renderBkList();}
-function showForgot(){$('modalContent').innerHTML=`<h2 style="margin-bottom:14px">${t('forgotTitle')}</h2><p style="color:var(--muted);font-size:14px;line-height:1.6;margin-bottom:20px">${t('forgotBody')}</p><a href="https://wa.me/${state.settings.phone}" class="btn btn-wa btn-full" target="_blank">📲 WhatsApp</a><br><br><button class="btn btn-ghost btn-full" data-action="closeModal">${t('back')}</button>`;$('modalBg').classList.remove('hidden');}
-
-/* ── LOGO TAP (tap-tap…pause…tap-tap) ── */
-let logoLog=[];
-function onLogoTap(){
-  const now=Date.now();logoLog.push(now);if(logoLog.length>4)logoLog=logoLog.slice(-4);
-  if(logoLog.length===4){const[t1,t2,t3,t4]=logoLog;const p1=t2-t1,gap=t3-t2,p2=t4-t3;
-    if(p1<480&&gap>380&&gap<1900&&p2<480){logoLog=[];adminAuthed=true;goTo('sAdmin');return;}}
-  clearTimeout(logoLog._t);logoLog._t=setTimeout(()=>{logoLog=[];},2500);
+let admResetOtp=null;
+function showForgot(){
+  const ru=state.settings.lang==='ru';
+  $('modalContent').innerHTML=`
+    <h2 style="margin-bottom:14px">${t('forgotTitle')}</h2>
+    <p style="color:var(--muted);font-size:14px;line-height:1.5;margin-bottom:18px">${ru?'Введите свой номер телефона — пришлём код в WhatsApp':'הזן את מספר הטלפון שלך — נשלח קוד בוואטסאפ'}</p>
+    <div class="form-group"><label>${ru?'Номер телефона':'מספר טלפון'}</label><input type="tel" id="rstPhone" placeholder="+972..." inputmode="tel" autocomplete="tel"/></div>
+    <button class="btn btn-primary btn-full" data-action="sendResetOtp">${ru?'Отправить код':'שלח קוד'}</button>
+    <button class="btn btn-ghost btn-full" style="margin-top:10px" data-action="closeModal">${t('back')}</button>`;
+  $('modalBg').classList.remove('hidden');
+  setTimeout(()=>{const el=$('rstPhone');if(el)el.focus();},200);
 }
+async function sendResetOtp(){
+  const ru=state.settings.lang==='ru';
+  const rawPhone=($('rstPhone')||{value:''}).value.trim();
+  if(!rawPhone){showToast(t('toastFill'));return;}
+  const norm=rawPhone.replace(/\D/g,'');
+  const adminNorm=state.settings.phone.replace(/\D/g,'');
+  if(norm!==adminNorm&&('0'+norm)!==adminNorm&&norm!==('972'+adminNorm.replace(/^0/,''))){
+    showToast(ru?'❌ Номер не найден':'❌ מספר לא נמצא');return;
+  }
+  if(!hasWaApi()){showToast(ru?'❌ WhatsApp API не настроен':'❌ WhatsApp API לא מוגדר');return;}
+  admResetOtp=String(Math.floor(100000+Math.random()*900000));
+  const msg=`🔐 ${ru?'Код сброса пароля':'קוד איפוס סיסמה'}: *${admResetOtp}*\n— ${ru?'Guy Nails':'סטודיו גיא'}`;
+  const sent=await waApiSend(rawPhone,msg);
+  if(!sent){admResetOtp=null;showToast(t('toastWaFail'));return;}
+  $('modalContent').innerHTML=`
+    <h2 style="margin-bottom:14px">${ru?'Сброс пароля':'איפוס סיסמה'}</h2>
+    <p style="color:var(--muted);font-size:14px;line-height:1.5;margin-bottom:18px">${ru?'Введите код из WhatsApp и новый пароль':'הזן קוד מוואטסאפ וסיסמה חדשה'}</p>
+    <div class="form-group"><label>${ru?'Код':'קוד'}</label><input type="text" id="rstOtp" inputmode="numeric" placeholder="123456" style="text-align:center;font-size:20px;letter-spacing:4px" maxlength="6"/></div>
+    <div class="form-group"><label>${ru?'Новый пароль':'סיסמה חדשה'}</label><input type="password" id="rstPwd" placeholder="${ru?'Минимум 4 символа':'לפחות 4 תווים'}"/></div>
+    <button class="btn btn-primary btn-full" data-action="submitResetPwd">${ru?'Сохранить':'שמור'}</button>
+    <button class="btn btn-ghost btn-full" style="margin-top:10px" data-action="closeModal">${t('back')}</button>`;
+  showToast(ru?'✅ Код отправлен в WhatsApp':'✅ קוד נשלח לוואטסאפ');
+}
+function submitResetPwd(){
+  const otp=($('rstOtp')||{value:''}).value.trim(),pwd=($('rstPwd')||{value:''}).value.trim();
+  const ru=state.settings.lang==='ru';
+  if(!otp||!pwd){showToast(t('toastFill'));return;}
+  if(pwd.length<4){showToast(ru?'⚠️ Пароль слишком короткий':'⚠️ הסיסמה קצרה מדי');return;}
+  if(otp!==admResetOtp){showToast(ru?'❌ Неверный код':'❌ קוד שגוי');return;}
+  state.settings.adminPwd=pwd;save();$('modalBg').classList.add('hidden');admResetOtp=null;showToast(t('toastSaved'));
+}
+
+/* ── SCHEDULE MANAGER ── */
+let schedDate=new Date().toISOString().slice(0,10);
+function showScheduleModal(){renderScheduleModal();$('modalBg').classList.remove('hidden');}
+function renderScheduleModal(){
+  const ru=state.settings.lang==='ru';
+  if(!state.blockedSlots)state.blockedSlots=[];
+  const allSlots=TIME_GROUPS.flatMap(g=>g.slots);
+  const slotsHtml=allSlots.map(sl=>{
+    const key=`${schedDate} ${sl}`;
+    const isBlocked=(state.blockedSlots||[]).includes(key);
+    const hasBk=state.bookings.some(b=>b.date===schedDate&&b.time===sl&&b.status!=='cancelled');
+    return`<button class="t-slot${isBlocked?' sel':''}" style="${isBlocked?'background:#e74c3c;border-color:#e74c3c;color:#fff':''}" ${hasBk?'disabled title="'+(ru?'Занято клиентом':'קיים תור')+'"':''} data-action="toggleSchedSlot" data-key="${key}">${sl}</button>`;
+  }).join('');
+  const blockedToday=(state.blockedSlots||[]).filter(k=>k.startsWith(schedDate+' ')).length;
+  $('modalContent').innerHTML=`
+    <h2 style="margin-bottom:14px">${t('scheduleBtn')}</h2>
+    <div class="form-group" style="margin-bottom:16px">
+      <label style="font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--muted)">${ru?'Дата':'תאריך'}</label>
+      <input type="date" id="schedDateIn" value="${schedDate}" min="${new Date().toISOString().slice(0,10)}" style="margin-top:4px">
+    </div>
+    <p style="font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">${ru?'Нажмите — закрыть слот (красный = закрыт)':'לחץ לחסימת שעה (אדום = חסום)'}</p>
+    <div class="time-grid">${slotsHtml}</div>
+    ${blockedToday?`<p style="font-size:12px;color:#e74c3c;margin-top:8px;font-weight:600">⛔ ${blockedToday} ${ru?'закрыт(о)':'חסום/ות'}</p>`:''}
+    <p style="font-size:11px;color:var(--muted);margin-top:6px">${ru?'Серый = занят клиентом (нельзя изменить)':'אפור = תור קיים (לא ניתן לשינוי)'}</p>
+    <button class="btn btn-ghost btn-full" style="margin-top:16px" data-action="closeModal">${t('back')}</button>`;
+  $('schedDateIn').addEventListener('change',e=>{schedDate=e.target.value;renderScheduleModal();});
+}
+function toggleSchedSlot(key){
+  if(!state.blockedSlots)state.blockedSlots=[];
+  const idx=state.blockedSlots.indexOf(key);
+  if(idx>=0)state.blockedSlots.splice(idx,1);
+  else state.blockedSlots.push(key);
+  save();renderScheduleModal();
+}
+
+/* ── LOGO TAP (10 taps in 15s) ── */
+let logoTaps=[];
+function onLogoTap(){
+  const now=Date.now();
+  logoTaps=logoTaps.filter(t=>now-t<15000);
+  logoTaps.push(now);
+  if(logoTaps.length>=10){logoTaps=[];adminAuthed=true;goTo('sAdmin');}
+}
+
+/* ── LIGHTBOX ── */
+let lbIdx=0;
+function openLightbox(idx){lbIdx=idx;lbRender();$('lightbox').classList.add('open');document.body.style.overflow='hidden';}
+function lbRender(){const g=state.gallery;$('lbImg').src=g[lbIdx].src;$('lbCounter').textContent=`${lbIdx+1} / ${g.length}`;$('lbPrev').style.visibility=g.length>1?'':'hidden';$('lbNext').style.visibility=g.length>1?'':'hidden';}
+function lbNav(d){lbIdx=(lbIdx+d+state.gallery.length)%state.gallery.length;lbRender();}
+function closeLightbox(){$('lightbox').classList.remove('open');document.body.style.overflow='';}
 
 /* ── UTILS ── */
 function $(id){return document.getElementById(id);}
@@ -1159,6 +1382,13 @@ document.addEventListener('click',e=>{
   const a=el.dataset.action;
   if(a==='go'){goTo(el.dataset.screen);return;}
   switch(a){
+    case 'openLb':openLightbox(+el.dataset.idx);break;
+    case 'lbClose':closeLightbox();break;
+    case 'lbPrev':lbNav(-1);break;
+    case 'lbNext':lbNav(1);break;
+    case 'submitOtp':submitOtp();break;
+    case 'resendOtp':resendOtp();break;
+    case 'submitResetPwd':submitResetPwd();break;
     case 'tryBook':tryBook(null);break;
     case 'tryBookSvc':tryBook(+el.dataset.id);break;
     case 'submitReg':submitReg();break;
@@ -1180,6 +1410,10 @@ document.addEventListener('click',e=>{
     case 'admTab':admTab(el.dataset.tab);break;
     case 'filterBk':bkFilter=el.dataset.filter;if(bkView==='list')renderBkList();else renderMonitor();break;
     case 'remindTmr':autoRemind(true);break;
+    case 'showSchedule':showScheduleModal();break;
+    case 'toggleSchedSlot':toggleSchedSlot(el.dataset.key);break;
+    case 'sendResetOtp':sendResetOtp();break;
+    case 'cancelMyBk':cancelBk(el.dataset.bid);renderMyBooking();break;
     case 'toggleBkView':toggleBkView();break;
     case 'advanceBk':advanceBk(el.dataset.bid);break;
     case 'completeBk':completeBk(el.dataset.bid);renderBkList();break;
@@ -1206,10 +1440,12 @@ document.addEventListener('click',e=>{if(e.target.closest('#logoImg'))onLogoTap(
 document.addEventListener('click',e=>{
   const b=e.target.closest('[data-lang]');if(!b)return;setLang(b.dataset.lang);
   const ac=document.querySelector('.screen.active');
-  if(ac.id==='sHome')renderHome();if(ac.id==='sSettings')renderSettings();if(ac.id==='sAdmin')renderAdmin();
+  if(ac.id==='sHome')renderHome();if(ac.id==='sSettings')renderSettings();if(ac.id==='sMyBooking')renderMyBooking();if(ac.id==='sAdmin')renderAdmin();
 });
 $('adminPwd').addEventListener('keydown',e=>{if(e.key==='Enter')doAdminLogin();});
 $('modalBg').addEventListener('click',e=>{if(e.target===$('modalBg'))$('modalBg').classList.add('hidden');});
+// Lightbox swipe
+(()=>{let sx=0;const lb=$('lightbox');lb.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;},{passive:true});lb.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>55)lbNav(dx<0?1:-1);},{passive:true});})();
 // Swipe-to-dismiss reg sheet
 (()=>{
   const sheet=$('regSheet'),body=sheet.querySelector('.reg-body');
